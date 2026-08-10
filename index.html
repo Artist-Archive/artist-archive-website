@@ -134,8 +134,8 @@ section{scroll-margin-top:var(--nav-h)}
 /* story */
 .story{max-width:720px;margin:0 auto}
 .story-card{background:var(--white);border:1px solid var(--hair);border-radius:22px;padding:46px 38px;box-shadow:var(--shadow-lg);text-align:center}
-.story-photo{width:96px;height:96px;border-radius:50%;margin:0 auto 22px;background:var(--oat);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--faint);text-align:center;overflow:hidden}
-.story-photo img{width:100%;height:100%;object-fit:cover}
+.story-photo{width:124px;height:124px;border-radius:50%;margin:0 auto 22px;background:var(--oat);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--faint);text-align:center;overflow:hidden}
+.story-photo img{width:100%;height:100%;object-fit:cover;object-position:42% 20%}
 .story-links{margin-top:22px;font-size:15px}
 .story-links a{color:var(--walnut);font-weight:600}
 .story-links a:hover{text-decoration:underline}
@@ -245,13 +245,39 @@ section{scroll-margin-top:var(--nav-h)}
       <div class="feature reveal">
         <div class="feat-art">
           <div class="phone"><div class="phone-screen">
+            <img class="shot" src="screens/client.png" alt="A client profile, with consultation details and their sessions">
+          </div></div>
+        </div>
+        <div class="feat-txt">
+          <p class="eyebrow">Every client</p>
+          <h3>A home for every client</h3>
+          <p>Keep a profile for each bride, with consultation details, allergies and a countdown to the big day. Every trial you log sits with them, so their whole history is one tap away.</p>
+        </div>
+      </div>
+
+      <div class="feature rev reveal">
+        <div class="feat-art">
+          <div class="phone"><div class="phone-screen">
             <img class="shot" src="screens/kit.png" alt="The In your kit checklist, ticking the products used">
           </div></div>
         </div>
         <div class="feat-txt">
           <p class="eyebrow">Log every trial</p>
           <h3>Build your kit once, then just tick</h3>
-          <p>No more typing every product by hand. Your kit shows one row per product, and you tap what you used. Shades, notes, photos and the little adjustments, all saved to the trial so nothing is left to memory.</p>
+          <p>No more typing every product by hand. Your kit shows one row per product, and you tap what you used. A built-in catalog of 7,300 products, and growing, means you are not typing shades by hand either.</p>
+        </div>
+      </div>
+
+      <div class="feature reveal">
+        <div class="feat-art">
+          <div class="phone"><div class="phone-screen">
+            <img class="shot" src="screens/trial.png" alt="A saved trial, showing the products, shades and photos used">
+          </div></div>
+        </div>
+        <div class="feat-txt">
+          <p class="eyebrow">The whole look</p>
+          <h3>Every trial, ready to recreate</h3>
+          <p>Each trial holds the products and exact shades you used, your notes, the little adjustments, and photos of the finished look. Weeks later it is all there, nothing left to memory.</p>
         </div>
       </div>
 
@@ -264,7 +290,7 @@ section{scroll-margin-top:var(--nav-h)}
         <div class="feat-txt">
           <p class="eyebrow">Find it again</p>
           <h3>Any past look, in seconds</h3>
-          <p>Every photo you take sits in one browsable gallery, and every client carries a countdown to their big day so nothing sneaks up on you. Tap a look to jump straight back to the trial that made it.</p>
+          <p>Every photo you take sits in one browsable gallery. Tap any look to jump straight back to the trial that made it, the products, the shades and the notes all still there.</p>
         </div>
       </div>
     </div>
@@ -290,8 +316,7 @@ section{scroll-margin-top:var(--nav-h)}
     <div class="wrap">
       <div class="story reveal">
         <div class="story-card">
-          <!-- TODO: replace the placeholder with <img src="steph.jpg" alt="Steph"> once the photo is added -->
-          <div class="story-photo"><span>Your photo</span></div>
+          <div class="story-photo"><img src="steph.jpg" alt="Steph, a bridal makeup artist, applying makeup"></div>
           <p class="eyebrow">The story</p>
           <p class="quote">&ldquo;I built the tool I wished existed, so a look from a trial two months ago is never a guess on the wedding morning.&rdquo;</p>
           <p class="by">Made by <b>Steph</b>, a working bridal makeup artist in Christchurch, New Zealand. Not a faceless tech company, a real artist who does this job.</p>
