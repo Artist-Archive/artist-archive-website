@@ -75,8 +75,11 @@ img{max-width:100%;display:block}
 
 /* phone mock */
 .phone{width:262px;background:var(--espresso);border-radius:38px;padding:11px;box-shadow:var(--shadow-lg)}
-.phone-screen{background:var(--linen);border-radius:29px;overflow:hidden;aspect-ratio:9/19.2;position:relative;display:flex;flex-direction:column}
-.phone-screen img{width:100%;height:100%;object-fit:cover;object-position:top}
+.phone-screen{background:var(--oat);border-radius:29px;overflow:hidden;position:relative}
+/* Real screenshots: pull up to crop the iOS status bar (time + battery) out of
+   the frame. The value is a % of the frame WIDTH; ~14% clears the status bar on
+   modern iPhones. Tunable if it peeks or crops too much. */
+.shot{display:block;width:100%;height:auto;margin-top:-14%}
 .ph-pad{padding:26px 16px 16px}
 .ph-note{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;color:var(--faint)}
 .ph-eyebrow{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--walnut);margin:0 0 9px}
@@ -209,25 +212,9 @@ section{scroll-margin-top:var(--nav-h)}
           </div>
         </div>
         <div class="hero-art reveal">
-          <div class="phone" aria-hidden="true">
+          <div class="phone">
             <div class="phone-screen">
-              <div class="ph-pad">
-                <p class="ph-eyebrow">Next big day</p>
-                <div class="ph-card ph-hero-card">
-                  <div class="ph-avatar">SC</div>
-                  <div>
-                    <div class="ph-name">Sarah Chen</div>
-                    <div class="ph-meta">Sat 12 Sep 2026</div>
-                  </div>
-                  <div class="ph-count"><b>42</b><small>days to go</small></div>
-                </div>
-                <p class="ph-sec">Coming up</p>
-                <div class="ph-list">
-                  <div class="ph-row"><div class="ph-avatar" style="width:30px;height:30px;font-size:11px">AR</div><div class="ph-rl">Amelia Ross</div><span class="ph-chip">88 days</span></div>
-                  <div class="ph-row"><div class="ph-avatar" style="width:30px;height:30px;font-size:11px">JT</div><div class="ph-rl">Jess Taylor</div><span class="ph-chip">130 days</span></div>
-                </div>
-              </div>
-              <div class="ph-note">Sample. Real screenshot to come.</div>
+              <img class="shot" src="screens/home.png" alt="The Artist Archive home screen, showing the next big day and a countdown">
             </div>
           </div>
         </div>
@@ -257,17 +244,9 @@ section{scroll-margin-top:var(--nav-h)}
 
       <div class="feature reveal">
         <div class="feat-art">
-          <div class="phone" aria-hidden="true"><div class="phone-screen"><div class="ph-pad">
-            <p class="ph-eyebrow">In your kit</p>
-            <div class="ph-list" style="margin-top:0">
-              <div class="ph-row"><span class="ph-tick on"></span><div class="ph-rl">Charlotte Tilbury Beautiful Skin</div><span class="ph-chip">7 Neutral</span></div>
-              <div class="ph-row"><span class="ph-tick on"></span><div class="ph-rl">NARS Radiant Concealer</div><span class="ph-chip">Vanilla</span></div>
-              <div class="ph-row"><span class="ph-tick"></span><div class="ph-rl">Rare Beauty Blush</div></div>
-              <div class="ph-row"><span class="ph-tick on"></span><div class="ph-rl">MAC Velvet Teddy</div></div>
-              <div class="ph-row"><span class="ph-tick"></span><div class="ph-rl">Ardell Wispies</div></div>
-            </div>
-            <div class="ph-note">Sample. Real screenshot to come.</div>
-          </div></div></div>
+          <div class="phone"><div class="phone-screen">
+            <img class="shot" src="screens/kit.png" alt="The In your kit checklist, ticking the products used">
+          </div></div>
         </div>
         <div class="feat-txt">
           <p class="eyebrow">Log every trial</p>
@@ -278,15 +257,9 @@ section{scroll-margin-top:var(--nav-h)}
 
       <div class="feature rev reveal">
         <div class="feat-art">
-          <div class="phone" aria-hidden="true"><div class="phone-screen"><div class="ph-pad">
-            <p class="ph-eyebrow">Gallery</p>
-            <div class="ph-grid">
-              <div class="ph-tile"></div><div class="ph-tile"></div><div class="ph-tile"></div>
-              <div class="ph-tile"></div><div class="ph-tile"></div><div class="ph-tile"></div>
-              <div class="ph-tile"></div><div class="ph-tile"></div><div class="ph-tile"></div>
-            </div>
-            <div class="ph-note">Sample. Real screenshot to come.</div>
-          </div></div></div>
+          <div class="phone"><div class="phone-screen">
+            <img class="shot" src="screens/gallery.png" alt="The gallery, a grid of client photos">
+          </div></div>
         </div>
         <div class="feat-txt">
           <p class="eyebrow">Find it again</p>
