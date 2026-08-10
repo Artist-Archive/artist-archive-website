@@ -28,7 +28,7 @@
   --espresso:#40352C;--muted:rgba(64,53,44,.72);--faint:rgba(64,53,44,.55);
   --border:#CFC0AA;--hair:rgba(64,53,44,.12);
   --shadow:0 2px 8px rgba(64,53,44,.05);--shadow-lg:0 12px 34px rgba(64,53,44,.10);
-  --nav-h:70px;--maxw:1120px;--radius:16px;
+  --nav-h:76px;--maxw:1120px;--radius:16px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -45,18 +45,19 @@ img{max-width:100%;display:block}
 .nav{position:sticky;top:0;z-index:50;transition:background .2s,box-shadow .2s,border-color .2s;border-bottom:1px solid transparent}
 .nav.scrolled{background:rgba(246,241,234,.9);backdrop-filter:saturate(1.1) blur(8px);border-bottom-color:var(--hair);box-shadow:var(--shadow)}
 .nav-inner{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;max-width:var(--maxw);margin:0 auto;padding:0 24px}
-.nav-logo{height:42px;width:auto}
+.nav-logo{height:50px;width:auto}
 .nav-links{display:flex;align-items:center;gap:30px}
 .nav-links a{font-size:15px;color:var(--muted);font-weight:500}
 .nav-links a:hover{color:var(--espresso)}
 .nav-links a.nav-cta{font-size:14px;font-weight:600;color:#fff;background:var(--walnut);padding:9px 18px;border-radius:11px}
 .nav-links a.nav-cta:hover{background:var(--walnut-d);color:#fff}
 @media(max-width:720px){.nav-links a:not(.nav-cta){display:none}}
+@media(max-width:560px){.nav-logo{height:40px}}
 
 /* buttons */
-.appstore{display:inline-flex;align-items:center;gap:11px;background:#000;color:#fff;padding:12px 20px 12px 18px;border-radius:13px;transition:transform .12s,background .2s}
-.appstore:hover{background:#1a1a1a;transform:translateY(-1px)}
-.appstore svg{width:26px;height:26px;fill:var(--white);flex:none}
+.appstore{display:inline-flex;align-items:center;gap:11px;background:#fff;color:#000;border:1px solid rgba(64,53,44,.22);padding:11px 20px 11px 18px;border-radius:13px;transition:transform .12s,box-shadow .2s}
+.appstore:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.appstore svg{width:26px;height:26px;fill:#000;flex:none}
 .appstore .as-t{display:flex;flex-direction:column;line-height:1.15;text-align:left}
 .appstore .as-t small{font-size:10.5px;letter-spacing:.02em;opacity:.85;text-transform:uppercase}
 .appstore .as-t span{font-family:'Work Sans',sans-serif;font-weight:600;font-size:17px}
@@ -321,7 +322,7 @@ section{scroll-margin-top:var(--nav-h)}
           <p class="eyebrow">The story</p>
           <p class="quote">&ldquo;I built the tool I wished existed, so a look from a trial two months ago is never a guess on the wedding morning.&rdquo;</p>
           <p class="by">Made by <b>Steph</b>, a working bridal makeup artist in Christchurch, New Zealand. Not a faceless tech company, a real artist who does this job.</p>
-          <p class="story-links"><a href="https://www.instagram.com/makeupbystephnz" target="_blank" rel="noopener">@makeupbystephnz on Instagram</a></p>
+          <p class="story-links"><a href="https://www.instagram.com/makeupbystephnz" target="_blank" rel="noopener">@makeupbystephnz</a></p>
         </div>
       </div>
     </div>
