@@ -15,7 +15,7 @@
 :root{--oat:#E8DCCA;--walnut:#65523E;--walnut-d:#4F3F2F;--linen:#F6F1EA;--muted:rgba(101,82,62,.86);--line:rgba(101,82,62,.16)}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{background:var(--oat);color:var(--walnut);font-family:'Poppins',system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;min-height:100vh;display:flex;flex-direction:column}
+body{background:var(--linen);color:var(--walnut);font-family:'Poppins',system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;min-height:100vh;display:flex;flex-direction:column}
 h1,h2,h3{font-family:'Manrope',system-ui,sans-serif;font-weight:500;letter-spacing:-.02em;line-height:1.15;margin:0}
 a{color:var(--walnut);text-decoration:none}
 a:hover{text-decoration:underline}
@@ -40,7 +40,7 @@ a:hover{text-decoration:underline}
 .foot-right a:first-child{margin-left:0}
 @media(max-width:560px){.foot{flex-direction:column;text-align:center;gap:10px;padding:20px 20px 28px}.foot-right a{margin:0 9px}}
 @media(max-width:430px){.waitlist input[type=email],.btn{flex:1 1 100%}}
-.doc{max-width:760px;margin:0 auto;padding:6px 22px 90px}
+.doc{max-width:760px;margin:0 auto 64px;padding:46px 46px 60px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 14px 40px rgba(101,82,62,.09)}
 .doc-back{display:inline-block;margin:20px 0 6px;font-size:14px;color:var(--muted)}
 .doc h1{font-size:clamp(26px,5vw,38px);margin:14px 0 6px}
 .doc h2{font-size:20px;margin:34px 0 6px}
@@ -53,6 +53,7 @@ a:hover{text-decoration:underline}
 .doc hr{border:none;border-top:1px solid var(--line);margin:30px 0}
 .doc a{text-decoration:underline}
 .doc-foot{margin-top:8px;font-size:14px}
+@media(max-width:560px){.doc{padding:32px 22px 46px;border-radius:16px;margin:0 12px 44px}}
 </style>
 </head>
 <body>
