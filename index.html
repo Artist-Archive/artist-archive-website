@@ -61,6 +61,8 @@ img{max-width:100%;display:block}
 .appstore .as-t{display:flex;flex-direction:column;line-height:1.15;text-align:left}
 .appstore .as-t small{font-size:10.5px;letter-spacing:.02em;opacity:.85;text-transform:uppercase}
 .appstore .as-t span{font-family:'Work Sans',sans-serif;font-weight:600;font-size:17px}
+.appstore.badge-soon{opacity:.62;cursor:default;border-style:dashed}
+.appstore.badge-soon:hover{transform:none;box-shadow:none}
 
 /* hero */
 .hero{padding:calc(var(--nav-h) - 20px) 0 40px}
@@ -148,7 +150,7 @@ section{scroll-margin-top:var(--nav-h)}
 .final{text-align:center}
 .final h2{font-size:clamp(28px,4vw,44px);margin:0 0 18px}
 .final p{font-size:18px;color:var(--muted);margin:0 0 30px}
-.final .actions{display:flex;justify-content:center}
+.final .actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
 .updates{max-width:440px;margin:30px auto 0}
 .updates .ulabel{font-size:14px;color:var(--faint);margin:0 0 10px}
 .updates form{display:flex;gap:10px;flex-wrap:wrap}
@@ -208,7 +210,10 @@ section{scroll-margin-top:var(--nav-h)}
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.417 2.2-1.25 3.06-.99 1.02-2.18 1.61-3.36 1.52-.14-1.12.42-2.29 1.2-3.06.86-.85 2.24-1.5 3.41-1.52.02.17.02.34 0 .5zM20.5 17.2c-.6 1.39-.9 2-1.67 3.23-1.08 1.71-2.6 3.84-4.48 3.85-1.67.02-2.1-1.09-4.37-1.08-2.27.01-2.74 1.1-4.41 1.09-1.88-.02-3.32-1.94-4.4-3.65C-1.3 16.2-.36 9.6 3.28 7.8c1.29-.66 2.5-.66 3.62-.66 1.19 0 1.94.68 3.62.68 1.63 0 2.62-.68 4-0.68 1.06 0 2.18.29 3.06 1.02-2.69 1.47-2.25 5.32.92 6.04z"/></svg>
               <span class="as-t"><small>Download on the</small><span>App Store</span></span>
             </a>
-            <span class="soon">Android coming soon</span>
+            <span class="appstore badge-soon" role="img" aria-label="Google Play, coming soon">
+              <svg viewBox="0 0 512 512" aria-hidden="true"><path d="M99.617 8.057a50.191 50.191 0 0 0-38.815-6.713l230.932 230.933 74.846-74.846L99.617 8.057zM32.139 20.116c-6.441 8.563-10.148 19.077-10.148 30.199v411.358c0 11.123 3.708 21.636 10.148 30.199l235.877-235.877L32.139 20.116zM464.261 212.087l-67.266-37.637-81.544 81.544 81.548 81.548 67.273-37.64c16.117-9.03 25.738-25.442 25.738-43.908s-9.621-34.877-25.749-43.907zM291.733 279.711L60.815 510.629c3.786.891 7.639 1.371 11.492 1.371a50.275 50.275 0 0 0 27.31-8.07l266.965-149.372-74.849-74.847z"/></svg>
+              <span class="as-t"><small>Coming soon to</small><span>Google Play</span></span>
+            </span>
           </div>
         </div>
         <div class="hero-art reveal">
@@ -338,6 +343,10 @@ section{scroll-margin-top:var(--nav-h)}
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.417 2.2-1.25 3.06-.99 1.02-2.18 1.61-3.36 1.52-.14-1.12.42-2.29 1.2-3.06.86-.85 2.24-1.5 3.41-1.52.02.17.02.34 0 .5zM20.5 17.2c-.6 1.39-.9 2-1.67 3.23-1.08 1.71-2.6 3.84-4.48 3.85-1.67.02-2.1-1.09-4.37-1.08-2.27.01-2.74 1.1-4.41 1.09-1.88-.02-3.32-1.94-4.4-3.65C-1.3 16.2-.36 9.6 3.28 7.8c1.29-.66 2.5-.66 3.62-.66 1.19 0 1.94.68 3.62.68 1.63 0 2.62-.68 4-0.68 1.06 0 2.18.29 3.06 1.02-2.69 1.47-2.25 5.32.92 6.04z"/></svg>
             <span class="as-t"><small>Download on the</small><span>App Store</span></span>
           </a>
+          <span class="appstore badge-soon" role="img" aria-label="Google Play, coming soon">
+            <svg viewBox="0 0 512 512" aria-hidden="true"><path d="M99.617 8.057a50.191 50.191 0 0 0-38.815-6.713l230.932 230.933 74.846-74.846L99.617 8.057zM32.139 20.116c-6.441 8.563-10.148 19.077-10.148 30.199v411.358c0 11.123 3.708 21.636 10.148 30.199l235.877-235.877L32.139 20.116zM464.261 212.087l-67.266-37.637-81.544 81.544 81.548 81.548 67.273-37.64c16.117-9.03 25.738-25.442 25.738-43.908s-9.621-34.877-25.749-43.907zM291.733 279.711L60.815 510.629c3.786.891 7.639 1.371 11.492 1.371a50.275 50.275 0 0 0 27.31-8.07l266.965-149.372-74.849-74.847z"/></svg>
+            <span class="as-t"><small>Coming soon to</small><span>Google Play</span></span>
+          </span>
         </div>
         <div class="updates">
           <p class="ulabel">On Android? Join the list and we&rsquo;ll let you know when it lands.</p>
