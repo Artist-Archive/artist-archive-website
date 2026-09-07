@@ -45,7 +45,16 @@ body{
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
+  /* 🐞 100vh IS A LIE ON A PHONE (Steph, on device 2026-09-08: "on mobile the
+     social media links are snapping outside of the scrollable region").
+     On iOS Safari and Chrome mobile, 100vh is the viewport with the browser's
+     toolbars HIDDEN — the large viewport. So a body sized to exactly 100vh is
+     taller than what you can actually see, and its last ~60-90px sit behind the
+     bottom toolbar. The footer's social icons were in exactly that band.
+     100dvh is the DYNAMIC viewport height, which is what is really visible.
+     Declared second so any browser that does not know dvh keeps the vh line. */
   min-height:100vh;
+  min-height:100dvh;
   display:flex;
   flex-direction:column;
 }
@@ -162,7 +171,15 @@ a:hover{text-decoration:underline}
 .foot-note{font-size:13px;color:var(--faint);margin:16px 0 0;text-align:center}
 
 /* ── Footer ───────────────────────────────────────────────────────────── */
-.foot{border-top:1px solid var(--rule);padding:20px 22px;font-size:13px;color:var(--muted)}
+/* ⚠️ The extra bottom padding clears the iPhone's home indicator, and it also
+   means the last row is never flush against the very edge of the screen — which
+   is what made the social icons feel like they had fallen off the page. */
+.foot{
+  border-top:1px solid var(--rule);
+  padding:20px 22px calc(20px + env(safe-area-inset-bottom));
+  font-size:13px;
+  color:var(--muted);
+}
 .foot-inner{
   max-width:900px;
   margin:0 auto;
