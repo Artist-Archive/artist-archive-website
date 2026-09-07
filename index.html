@@ -6,7 +6,8 @@
 <title>Artist Archive | Bridal Trial App for Makeup Artists &amp; Hairstylists</title>
 <meta name="description" content="Artist Archive keeps your clients' trial notes, products, and photos together in one place. Built by a working bridal makeup artist. Join the waitlist.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#FFFFFF">
 <meta property="og:type" content="website">
@@ -94,6 +95,10 @@ a:hover{text-decoration:underline}
   text-align:center;
   padding:48px 22px 72px;
 }
+/* 560 on a phone, wider on a desktop — see the media query. A single max-width
+   here was cramming the headline, the sub and the credibility line into three
+   two-line blocks on a 1440 screen with most of it empty (Steph, 2026-09-08:
+   "on desktop the text is very wrapped in the centre when it doesnt need too"). */
 .hero-inner{width:100%;max-width:560px}
 .eyebrow{
   font-family:'Inter',sans-serif;
@@ -205,6 +210,12 @@ a:hover{text-decoration:underline}
   .brand{margin-bottom:52px}
   .mark{width:54px}
   .wordmark{font-size:36px}
+  /* Room for the headline to sit on ONE line and the two support lines to stop
+     breaking mid-thought. ⚠️ The waitlist stays narrow on purpose — a form field
+     stretched to 880px is a worse target, not a better one. */
+  .hero-inner{max-width:880px}
+  .sub{max-width:none}
+  .credibility{max-width:none}
   .waitlist{display:flex;align-items:flex-end;gap:18px;max-width:520px}
   .waitlist input[type=email]{flex:1 1 auto}
   .btn{width:auto;flex:0 0 auto;padding-left:6px;padding-right:6px;white-space:nowrap}

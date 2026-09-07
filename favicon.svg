@@ -1,4 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="175" height="206" viewBox="6 -1 175 206" xmlns:c2pa="http://c2pa.org/manifest">
-  <g transform="rotate(-17 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#8C2340" stroke-width="7"></rect></g>
-  <g transform="rotate(-8.5 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#12100E" stroke-width="7"></rect></g>
-  <rect x="60" y="26" width="118" height="168" rx="14" fill="#12100E"></rect></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-38.5 -30 264 264" width="264" height="264" role="img" aria-label="Artist Archive">
+  <!-- A favicon needs its OWN artwork, not the bare mark.
+       The mark is transparent with its viewBox trimmed tight to the drawing, so
+       used directly it sits edge to edge and, being mostly ink, disappears
+       against a dark browser theme. This is the designer's favicon spec: an
+       opaque white ground with even padding, matching favicon-*.png.
+
+       ⚠️ THE PADDING IS DONE BY WIDENING THE viewBox, not by transforming the
+       artwork. A hand-computed translate+scale got it visibly wrong first go —
+       the rotated cards reach outside the mark's own tight viewBox, so the
+       arithmetic clipped the burgundy card off the left edge. Widening the
+       window instead cannot clip anything: it only ever reveals more.
+       The mark occupies x 6..181 and y -1..205. A 264 square centres that with
+       roughly 14% clear on every side. -->
+  <rect x="-38.5" y="-30" width="264" height="264" fill="#FFFFFF"/>
+  <g transform="rotate(-17 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#8C2340" stroke-width="7"/></g>
+  <g transform="rotate(-8.5 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#12100E" stroke-width="7"/></g>
+  <rect x="60" y="26" width="118" height="168" rx="14" fill="#12100E"/>
+</svg>
