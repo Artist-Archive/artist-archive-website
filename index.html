@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Artist Archive | Bridal Trial App for Makeup Artists & Hairstylists</title>
+<title>Artist Archive | Bridal Trial App for Makeup Artists &amp; Hairstylists</title>
 <meta name="description" content="Artist Archive keeps your clients' trial notes, products, and photos together in one place. Built by a working bridal makeup artist. Join the waitlist.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#FFFFFF">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.artistarchiveapp.com/">
-<meta property="og:title" content="Artist Archive | Bridal Trial App for Makeup Artists & Hairstylists">
+<meta property="og:title" content="Artist Archive | Bridal Trial App for Makeup Artists &amp; Hairstylists">
 <meta property="og:description" content="Trial notes, products, and photos for every client, together in one place. Built by a working bridal makeup artist.">
 <meta property="og:image" content="https://www.artistarchiveapp.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -20,72 +21,214 @@
 <meta name="twitter:image" content="https://www.artistarchiveapp.com/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Archivo 800 is the LOGO's typeface (the designer's spec). Work Sans and Inter
+     are the app's, so the page and the app read as one thing. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Work+Sans:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--oat:#E8DCCA;--walnut:#65523E;--walnut-d:#4F3F2F;--linen:#F6F1EA;--muted:rgba(101,82,62,.86);--line:rgba(101,82,62,.16)}
+/* The app's tokens, exactly: docs/redesign.md section 4.1. */
+:root{
+  --ground:#FFFFFF;
+  --ink:#12100E;
+  --body:#4A4542;
+  --muted:#8B857F;
+  --faint:#ADA7A1;
+  --rule:#EDEAE7;
+  --border:#E3DEDA;
+  --accent:#8C2340;
+}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{background:var(--linen);color:var(--walnut);font-family:'Poppins',system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;min-height:100vh;display:flex;flex-direction:column}
-h1,h2,h3{font-family:'Manrope',system-ui,sans-serif;font-weight:500;letter-spacing:-.02em;line-height:1.15;margin:0}
-a{color:var(--walnut);text-decoration:none}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+a{color:var(--ink);text-decoration:none}
 a:hover{text-decoration:underline}
-.wordmark{font-family:'Manrope',sans-serif;font-weight:600;letter-spacing:.02em;font-size:18px;color:var(--walnut)}
-.brand-logo{height:84px;width:auto;display:block;margin:0 0 64px}
-.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:54px 20px 110px}
-.eyebrow{font-family:'Poppins',sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:16px;font-weight:600;color:var(--muted);margin:0 0 22px}
-.headline{font-size:clamp(30px,5.2vw,46px);max-width:none;margin:0 0 22px;line-height:1.12}
-.sub{font-size:clamp(16px,2.2vw,18px);max-width:none;margin:0 auto 10px;line-height:1.55}
-.credibility{font-size:15px;color:var(--muted);max-width:560px;margin:0 auto}
-.waitlist{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;width:100%;max-width:540px;margin:36px auto 0}
-.waitlist input[type=email]{flex:1 1 240px;min-width:0;font-family:inherit;font-size:16px;color:var(--walnut);background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;transition:border-color .15s}
-.waitlist input[type=email]:focus{outline:none;border-color:var(--walnut)}
-.waitlist input::placeholder{color:rgba(101,82,62,.5)}
-.btn{font-family:'Poppins',sans-serif;font-size:16px;font-weight:500;color:var(--linen);background:var(--walnut);border:none;border-radius:12px;padding:14px 26px;cursor:pointer;transition:background .15s}
-.btn:hover{background:var(--walnut-d)}
-.foot-note{font-size:13.5px;color:var(--muted);margin-top:16px}
-.foot{background:var(--oat);border-top:1px solid var(--line)}
-.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px 20px;padding:22px 28px 26px;color:var(--muted);font-size:14px;max-width:940px;width:100%;margin:0 auto}
-.foot-left{color:var(--walnut);display:flex;flex-direction:column;gap:6px}
-.foot-copy{color:var(--muted);font-size:13px;letter-spacing:.02em}
-.foot-right{display:flex;align-items:center}
-.foot-right a{color:var(--walnut);margin-left:18px}
-.foot-right a:first-child{margin-left:0}
-.foot-social{display:inline-flex;align-items:center;gap:14px;margin-left:18px;padding-left:18px;border-left:1px solid var(--line)}
-.foot-social a{margin:0;display:inline-flex}
-.foot-social svg{width:20px;height:20px;fill:var(--walnut);display:block}
-@media(max-width:560px){.foot-inner{flex-direction:column-reverse;text-align:center;gap:16px;padding:24px 20px 28px}.foot-left{gap:4px}.foot-right{flex-direction:column;gap:12px}.foot-right a{margin:0 9px}.foot-social{order:-1;margin-left:0;padding-left:0;border-left:none;gap:18px}}
-@media(max-width:430px){.waitlist input[type=email],.btn{flex:1 1 100%}}
-.doc{max-width:760px;margin:0 auto;padding:6px 22px 90px}
-.doc-back{display:inline-block;margin:20px 0 6px;font-size:14px;color:var(--muted)}
-.doc h1{font-size:clamp(26px,5vw,38px);margin:14px 0 6px}
-.doc h2{font-size:20px;margin:34px 0 6px}
-.doc h3{font-size:16px;font-family:'Poppins',sans-serif;font-weight:600;letter-spacing:0;margin:20px 0 4px}
-.doc p{margin:12px 0}
-.doc ul,.doc ol{margin:12px 0;padding-left:22px}
-.doc li{margin:7px 0}
-.doc strong{font-weight:600}
-.doc em{font-style:italic}
-.doc hr{border:none;border-top:1px solid var(--line);margin:30px 0}
-.doc a{text-decoration:underline}
-.doc-foot{margin-top:8px;font-size:14px}
+
+/* ── The brand block ──────────────────────────────────────────────────────
+   The mark is INLINE SVG and the wordmark is real text.
+   An <img src="logo.svg"> would not work here: that SVG sets its wordmark in
+   live Archivo, and an SVG loaded through <img> is isolated from the page, so
+   it cannot use a webfont the page has loaded — it would silently fall back to
+   Helvetica. Inline + real text also stays crisp at any size, is selectable,
+   and is readable by search engines. */
+.brand{display:flex;flex-direction:column;align-items:center;gap:12px;margin:0 0 44px}
+.mark{width:46px;height:auto;display:block}
+.wordmark{
+  font-family:'Archivo',system-ui,sans-serif;
+  font-weight:800;
+  letter-spacing:-.03em;
+  font-size:30px;
+  line-height:1;
+  /* A <p>'s default 1em top/bottom margin is ~30px at this size, and it stacked
+     on top of .brand's own margin — the wordmark sat marooned above the page.
+     Seen in the browser, not reasoned about. */
+  margin:0;
+}
+.wordmark .a1{color:var(--ink)}
+.wordmark .a2{color:var(--accent)}
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+.hero{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:48px 22px 72px;
+}
+.hero-inner{width:100%;max-width:560px}
+.eyebrow{
+  font-family:'Inter',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:11px;
+  font-weight:500;
+  color:var(--muted);
+  margin:0 0 14px;
+}
+/* clamp() is what makes one headline work on a 320px phone and a wide desktop
+   without a breakpoint fighting it. */
+.headline{
+  font-family:'Work Sans',system-ui,sans-serif;
+  font-weight:700;
+  letter-spacing:-.03em;
+  line-height:1.14;
+  font-size:clamp(30px,7.4vw,50px);
+  margin:0;
+  color:var(--ink);
+}
+.sub{
+  font-size:clamp(15px,2.6vw,18px);
+  color:var(--body);
+  margin:18px auto 0;
+  max-width:44ch;
+  line-height:1.55;
+}
+.credibility{
+  font-size:14px;
+  color:var(--muted);
+  margin:12px auto 0;
+  max-width:42ch;
+  line-height:1.55;
+}
+
+/* ── Waitlist ─────────────────────────────────────────────────────────────
+   Hairline rows, the shape the app uses for its own committing actions.
+   MOBILE FIRST: the field and the button stack full width. */
+.waitlist{width:100%;max-width:420px;margin:34px auto 0;text-align:left}
+.waitlist input[type=email]{
+  width:100%;
+  font-family:inherit;
+  font-size:16px; /* 16px or iOS zooms the page when the field is focused. */
+  color:var(--ink);
+  background:transparent;
+  border:none;
+  border-bottom:1px solid var(--border);
+  border-radius:0;
+  padding:13px 2px;
+  -webkit-appearance:none;
+  appearance:none;
+}
+.waitlist input[type=email]::placeholder{color:var(--faint)}
+.waitlist input[type=email]:focus{outline:none;border-bottom-color:var(--accent)}
+.btn{
+  width:100%;
+  display:block;
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  color:var(--accent);
+  background:transparent;
+  border:none;
+  border-bottom:1px solid var(--border);
+  border-radius:0;
+  padding:17px 2px;
+  cursor:pointer;
+  text-align:center;
+}
+.btn:hover{background:#FAF8F7}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.foot-note{font-size:13px;color:var(--faint);margin:16px 0 0;text-align:center}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+.foot{border-top:1px solid var(--rule);padding:20px 22px;font-size:13px;color:var(--muted)}
+.foot-inner{
+  max-width:900px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  text-align:center;
+}
+.foot a{color:var(--muted)}
+.foot-left{display:flex;flex-direction:column;gap:3px}
+.foot-copy{color:var(--faint)}
+.foot-right{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px}
+.foot-social{display:flex;gap:14px;align-items:center}
+.foot-social a{display:inline-flex}
+.foot-social svg{width:17px;height:17px;fill:var(--muted)}
+.foot-social a:hover svg{fill:var(--accent)}
+
+/* ── Desktop ──────────────────────────────────────────────────────────────
+   One breakpoint. The waitlist becomes a single row, and the footer spreads to
+   its two ends. Everything above scales with clamp() and needs nothing here. */
+@media(min-width:700px){
+  .brand{margin-bottom:52px}
+  .mark{width:54px}
+  .wordmark{font-size:36px}
+  .waitlist{display:flex;align-items:flex-end;gap:18px;max-width:520px}
+  .waitlist input[type=email]{flex:1 1 auto}
+  .btn{width:auto;flex:0 0 auto;padding-left:6px;padding-right:6px;white-space:nowrap}
+  .foot-inner{flex-direction:row;justify-content:space-between;text-align:left}
+  .foot-left{align-items:flex-start}
+}
 </style>
 </head>
 <body>
 <main class="hero">
-  <img class="brand-logo" src="/logo.svg" alt="Artist Archive">
-  <p class="eyebrow">Coming soon</p>
-  <h1 class="headline">Your clients&rsquo; looks, remembered.</h1>
-  <p class="sub">Trial notes, products, and photos for every client, together in one place.</p>
-  <p class="credibility">Built by a working bridal makeup artist, for makeup artists and hairstylists.</p>
-  <!-- Waitlist -> Mailchimp (audience us2, list df3c59656b). Posts straight to Mailchimp,
-       which shows its confirmation page in a new tab. No extra scripts needed. -->
-  <form class="waitlist" action="https://artistarchiveapp.us2.list-manage.com/subscribe/post?u=254ab4cf1fcc0622e6ffd9266&amp;id=df3c59656b&amp;f_id=00aac3e1f0" method="post" target="_blank" novalidate>
-    <input type="email" name="EMAIL" placeholder="Your email address" aria-label="Email address" required>
-    <!-- Mailchimp anti-bot honeypot: real people leave this empty. -->
-    <div aria-hidden="true" style="position:absolute;left:-5000px"><input type="text" name="b_254ab4cf1fcc0622e6ffd9266_df3c59656b" tabindex="-1" value=""></div>
-    <button class="btn" type="submit">Join the Waitlist</button>
-  </form>
-  <p class="foot-note">Join the waitlist to be the first to know when it launches.</p>
+  <div class="hero-inner">
+    <div class="brand">
+      <!-- The mark: three rounded cards, fanned. Inline so it needs no request
+           and can be recoloured; no text inside it, so no font to load. -->
+      <svg class="mark" viewBox="6 -1 175 206" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Artist Archive">
+        <g transform="rotate(-17 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#8C2340" stroke-width="7"/></g>
+        <g transform="rotate(-8.5 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#12100E" stroke-width="7"/></g>
+        <rect x="60" y="26" width="118" height="168" rx="14" fill="#12100E"/>
+      </svg>
+      <p class="wordmark"><span class="a1">Artist</span> <span class="a2">Archive</span></p>
+    </div>
+
+    <p class="eyebrow">Coming soon</p>
+    <h1 class="headline">Your clients&rsquo; looks, remembered.</h1>
+    <p class="sub">Trial notes, products, and photos for every client, together in one place.</p>
+    <p class="credibility">Built by a working bridal makeup artist, for makeup artists and hairstylists.</p>
+
+    <!-- Waitlist -> Mailchimp (audience us2, list df3c59656b). Posts straight to
+         Mailchimp, which shows its confirmation page in a new tab. No extra
+         scripts needed.
+         ⚠️ THE FORM'S WIRING IS UNCHANGED by the 2026-09-08 redesign: same
+         action URL, same EMAIL field name, same honeypot name. It is live and
+         collecting, so only its appearance moved. -->
+    <form class="waitlist" action="https://artistarchiveapp.us2.list-manage.com/subscribe/post?u=254ab4cf1fcc0622e6ffd9266&amp;id=df3c59656b&amp;f_id=00aac3e1f0" method="post" target="_blank" novalidate>
+      <input type="email" name="EMAIL" placeholder="Your email address" aria-label="Email address" required>
+      <!-- Mailchimp anti-bot honeypot: real people leave this empty. -->
+      <div aria-hidden="true" style="position:absolute;left:-5000px"><input type="text" name="b_254ab4cf1fcc0622e6ffd9266_df3c59656b" tabindex="-1" value=""></div>
+      <button class="btn" type="submit">Join the Waitlist</button>
+    </form>
+    <p class="foot-note">Be the first to know when it launches.</p>
+  </div>
 </main>
 <footer class="foot">
   <div class="foot-inner">
