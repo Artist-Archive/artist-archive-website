@@ -188,6 +188,16 @@ a:hover{color:var(--accent)}
 .foot-social a{display:inline-flex}
 .foot-social svg{width:17px;height:17px;fill:var(--muted)}
 .foot-social a:hover svg{fill:var(--accent)}
+/* Desktop: the footer spreads to the two ends of the row, and the left side
+   reads INLINE rather than stacked (Steph, 2026-09-08).
+   ⚠️ A SECOND media query, deliberately placed after the footer block. The
+   one further up sits ABOVE these rules, and between two rules of equal
+   specificity the later one wins - so putting these there would have been
+   silently overridden by .foot-inner's own flex-direction:column. */
+@media(min-width:700px){
+  .foot-inner{flex-direction:row;justify-content:space-between;text-align:left}
+  .foot-left{flex-direction:row;gap:16px;align-items:baseline}
+}
 </style>
 </head>
 <body>

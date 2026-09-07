@@ -203,6 +203,29 @@ a:hover{text-decoration:underline}
 .foot-social svg{width:17px;height:17px;fill:var(--muted)}
 .foot-social a:hover svg{fill:var(--accent)}
 
+/* ── Waitlist confirmation ────────────────────────────────────────────────
+   ⚠️ .wl-msg sits OUTSIDE the form, not inside it. On desktop .waitlist is a
+   flex ROW, and a third child in a row gets squeezed to nothing - the app hit
+   exactly that on 2026-09-08 and the Save button looked dead for a day. */
+.wl-msg{font-size:13px;color:var(--accent);margin:14px 0 0;text-align:center;line-height:1.5}
+.wl-done{
+  max-width:420px;
+  margin:34px auto 0;
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  padding:22px 2px;
+  text-align:center;
+}
+.wl-done:focus{outline:none}
+.wl-done-t{
+  font-family:'Work Sans',system-ui,sans-serif;
+  font-weight:700;
+  letter-spacing:-.02em;
+  font-size:18px;
+  color:var(--ink);
+  margin:0;
+}
+.wl-done-d{font-size:14px;color:var(--body);margin:9px 0 0;line-height:1.55}
 /* ── Desktop ──────────────────────────────────────────────────────────────
    One breakpoint. The waitlist becomes a single row, and the footer spreads to
    its two ends. Everything above scales with clamp() and needs nothing here. */
@@ -220,7 +243,8 @@ a:hover{text-decoration:underline}
   .waitlist input[type=email]{flex:1 1 auto}
   .btn{width:auto;flex:0 0 auto;padding-left:6px;padding-right:6px;white-space:nowrap}
   .foot-inner{flex-direction:row;justify-content:space-between;text-align:left}
-  .foot-left{align-items:flex-start}
+  /* Inline, not stacked (Steph, 2026-09-08). */
+  .foot-left{flex-direction:row;gap:16px;align-items:baseline}
 }
 </style>
 </head>
@@ -249,13 +273,24 @@ a:hover{text-decoration:underline}
          ⚠️ THE FORM'S WIRING IS UNCHANGED by the 2026-09-08 redesign: same
          action URL, same EMAIL field name, same honeypot name. It is live and
          collecting, so only its appearance moved. -->
+    <div class="wl-live">
     <form class="waitlist" action="https://artistarchiveapp.us2.list-manage.com/subscribe/post?u=254ab4cf1fcc0622e6ffd9266&amp;id=df3c59656b&amp;f_id=00aac3e1f0" method="post" target="_blank" novalidate>
       <input type="email" name="EMAIL" placeholder="Your email address" aria-label="Email address" required>
       <!-- Mailchimp anti-bot honeypot: real people leave this empty. -->
       <div aria-hidden="true" style="position:absolute;left:-5000px"><input type="text" name="b_254ab4cf1fcc0622e6ffd9266_df3c59656b" tabindex="-1" value=""></div>
       <button class="btn" type="submit">Join the Waitlist</button>
     </form>
+    <p class="wl-msg" role="status" aria-live="polite" hidden></p>
     <p class="foot-note">Be the first to know when it launches.</p>
+    </div>
+
+    <!-- Shown in place of the form once Mailchimp confirms. tabindex="-1" so
+         focus can be moved here, which is what tells a screen-reader user
+         that anything happened at all. -->
+    <div class="wl-done" tabindex="-1" hidden>
+      <p class="wl-done-t">You are on the list.</p>
+      <p class="wl-done-d">We will email you the moment Artist Archive opens.</p>
+    </div>
   </div>
 </main>
 <footer class="foot">
@@ -264,5 +299,127 @@ a:hover{text-decoration:underline}
     <span class="foot-right"><a href="privacypolicy/">Privacy Policy</a><a href="termsofservice/">Terms of Service</a><a href="mailto:support@artistarchiveapp.com">Contact</a><span class="foot-social"><a href="https://www.instagram.com/artistarchiveapp" target="_blank" rel="noopener" aria-label="Artist Archive on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a><a href="https://www.facebook.com/artistarchiveapp" target="_blank" rel="noopener" aria-label="Artist Archive on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a><a href="https://www.tiktok.com/@artistarchiveapp" target="_blank" rel="noopener" aria-label="Artist Archive on TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.08-.14 1.62.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></span></span>
   </div>
 </footer>
+<script>
+/* The waitlist confirms ON THIS PAGE instead of throwing the reader onto
+   Mailchimp's own unbranded thank-you page in a new tab (Steph, 2026-09-08).
+
+   ⚠️ THE FORM ITSELF IS UNTOUCHED - same action, same method, same EMAIL and
+   honeypot names, same target. That is the whole safety net: if this script
+   does not run, does not load, or Mailchimp ever moves the JSON endpoint, the
+   form still posts natively the way it has all along and the signup still
+   lands. A waitlist that silently stops collecting would be the worst
+   possible bug here, so every failure path calls form.submit().
+
+   Why JSONP and not fetch: list-manage.com sends no CORS headers, so a fetch
+   cannot read the reply. Its post-json endpoint wraps the JSON in a callback
+   named by ?c=, which a script tag can read. Verified live 2026-09-08: an
+   invalid address came back as
+   cb({"result":"error","msg":"0 - An email address must contain a single @."})
+   so the endpoint is alive and the shape is as expected. */
+(function () {
+  var form = document.querySelector('.waitlist');
+  var live = document.querySelector('.wl-live');
+  var done = document.querySelector('.wl-done');
+  var msg = document.querySelector('.wl-msg');
+  if (!form || !live || !done || !msg) return;
+
+  var field = form.querySelector('input[type=email]');
+  var button = form.querySelector('button');
+  var buttonText = button.textContent;
+  var sending = false;
+
+  function say(text) {
+    msg.textContent = text;
+    msg.hidden = false;
+  }
+
+  function reset() {
+    sending = false;
+    button.disabled = false;
+    button.textContent = buttonText;
+  }
+
+  // Every failure path ends here: hand the browser back its normal submit.
+  // form.submit() does not fire the submit event, so this cannot loop.
+  function handOver() {
+    reset();
+    form.submit();
+  }
+
+  function finish(heading) {
+    done.querySelector('.wl-done-t').textContent = heading;
+    live.hidden = true;
+    done.hidden = false;
+    done.focus();
+  }
+
+  form.addEventListener('submit', function (e) {
+    if (sending) { e.preventDefault(); return; }
+    var email = field.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      e.preventDefault();
+      say('That email address does not look right.');
+      field.focus();
+      return;
+    }
+    e.preventDefault();
+    msg.hidden = true;
+    sending = true;
+    button.disabled = true;
+    button.textContent = 'Joining';
+
+    var name = 'aaWaitlist' + Date.now();
+    var script = document.createElement('script');
+    var settled = false;
+
+    function cleanup() {
+      settled = true;
+      try { delete window[name]; } catch (err) { window[name] = undefined; }
+      if (script.parentNode) script.parentNode.removeChild(script);
+    }
+
+    var timer = setTimeout(function () {
+      if (settled) return;
+      cleanup();
+      handOver();
+    }, 8000);
+
+    window[name] = function (data) {
+      if (settled) return;
+      clearTimeout(timer);
+      cleanup();
+      var result = data && data.result;
+      var text = (data && data.msg) || '';
+      if (result === 'success') {
+        finish('You are on the list.');
+        return;
+      }
+      // Mailchimp calls an existing subscriber an error. It is not one.
+      if (/already subscribed/i.test(text)) {
+        finish('You are already on the list.');
+        return;
+      }
+      reset();
+      // Its messages arrive as "0 - ..." and can carry a link.
+      var clean = text.replace(/<[^>]*>/g, '').replace(/^\d+\s*-\s*/, '').trim();
+      say(clean || 'Something went wrong. Try again.');
+      field.focus();
+    };
+
+    script.onerror = function () {
+      if (settled) return;
+      clearTimeout(timer);
+      cleanup();
+      handOver();
+    };
+
+    script.src = form.action.replace('/subscribe/post?', '/subscribe/post-json?') +
+      '&EMAIL=' + encodeURIComponent(email) +
+      '&b_254ab4cf1fcc0622e6ffd9266_df3c59656b=' +
+      '&c=' + name;
+    document.head.appendChild(script);
+  });
+})();
+</script>
 </body>
 </html>
