@@ -10,37 +10,200 @@
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Archivo 800 is the LOGO's typeface (the designer's spec). Work Sans and Inter
+     are the app's. Same three faces as the landing page, so the whole site and
+     the app read as one thing. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Work+Sans:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--oat:#E8DCCA;--walnut:#65523E;--walnut-d:#4F3F2F;--linen:#F6F1EA;--muted:rgba(101,82,62,.86);--line:rgba(101,82,62,.16)}
+/* The app's tokens, exactly: docs/redesign.md section 4.1.
+   ⚠️ Keep this block IDENTICAL across index.html and the three legal pages.
+   There is no shared stylesheet: GitHub Pages serves static files and a second
+   request for a 3KB stylesheet costs more than repeating it. If you change a
+   token here, change it in all four. */
+:root{
+  --ground:#FFFFFF;
+  --ink:#12100E;
+  --body:#4A4542;
+  --muted:#8B857F;
+  --faint:#ADA7A1;
+  --rule:#EDEAE7;
+  --border:#E3DEDA;
+  --accent:#8C2340;
+}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{background:var(--linen);color:var(--walnut);font-family:'Poppins',system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;min-height:100vh;display:flex;flex-direction:column}
-h1,h2,h3{font-family:'Manrope',system-ui,sans-serif;font-weight:500;letter-spacing:-.02em;line-height:1.15;margin:0}
-a{color:var(--walnut);text-decoration:none}
-a:hover{text-decoration:underline}
-.brand-logo{height:60px;width:auto;display:block}
-.top{display:flex;justify-content:center;padding:26px 20px}
-.doc{max-width:760px;margin:0 auto 64px;padding:46px 46px 60px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 14px 40px rgba(101,82,62,.09)}
-.doc-back{display:inline-block;margin:20px 0 6px;font-size:14px;color:var(--muted)}
-.doc h1{font-size:clamp(26px,5vw,38px);margin:14px 0 6px}
-.doc h2{font-size:20px;margin:34px 0 6px}
-.doc p{margin:12px 0}
-.doc ul,.doc ol{margin:12px 0;padding-left:22px}
-.doc li{margin:7px 0}
-.doc strong{font-weight:600}
-.doc hr{border:none;border-top:1px solid var(--line);margin:30px 0}
-.doc a{text-decoration:underline}
-.doc-foot{margin-top:8px;font-size:14px}
-@media(max-width:560px){.doc{padding:32px 22px 46px;border-radius:16px;margin:0 12px 44px}}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  /* 🐞 100vh is the LARGE viewport on iOS - the one with the browser toolbars
+     hidden - so a body sized to it is taller than what you can actually see.
+     100dvh is what is really visible. Declared second so a browser that does
+     not know dvh keeps the vh line. Same fix as the landing page. */
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+}
+a{color:var(--ink)}
+a:hover{color:var(--accent)}
+
+/* ── The brand block ──────────────────────────────────────────────────────
+   The mark is INLINE SVG and the wordmark is real text - NOT <img src="logo.svg">.
+   An SVG loaded through <img> is isolated from the page, so it cannot use a
+   webfont the page has loaded, and the logo's live Archivo wordmark would
+   silently fall back to Helvetica. */
+.top{display:flex;justify-content:center;padding:30px 22px 4px}
+/* Horizontal lockup: mark on the left, wordmark beside it. The two numbers are
+   measured off the designer's assets/logo/lockup-horizontal.svg, so this matches
+   the real lockup rather than being eyeballed: the mark is 2.14x the wordmark's
+   font-size tall, the gap between them is 0.39em, and the two are centred on
+   each other (the mark spans y 14-185 and the text sits 70-128, both centred
+   on 99). */
+.brand{display:flex;flex-direction:row;align-items:center;gap:8px;text-decoration:none}
+.brand:hover{text-decoration:none}
+.mark{height:45px;width:auto;display:block}
+.wordmark{
+  font-family:'Archivo',system-ui,sans-serif;
+  font-weight:800;
+  letter-spacing:-.03em;
+  font-size:21px;
+  line-height:1;
+  margin:0;
+  color:var(--ink);
+}
+.wordmark .a2{color:var(--accent)}
+
+/* ── The document ─────────────────────────────────────────────────────────
+   No card, no shadow, no radius. The text sits straight on the white ground
+   and the hairlines do the dividing, the same way the app's screens work.
+   66ch is the readable measure - past about 75 the eye loses the line. */
+.doc{flex:1;width:100%;max-width:680px;margin:0 auto;padding:24px 22px 72px}
+/* ⚠️ .doc .doc-back, not .doc-back - ".doc a" further down underlines every
+   link in the document and would out-specify a bare class. */
+.doc .doc-back{
+  display:inline-block;
+  font-family:'Inter',sans-serif;
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  text-decoration:none;
+  margin:0 0 28px;
+}
+.doc .doc-back:hover{color:var(--accent)}
+.doc h1{
+  font-family:'Work Sans',system-ui,sans-serif;
+  font-weight:700;
+  letter-spacing:-.03em;
+  line-height:1.14;
+  font-size:clamp(28px,6.4vw,40px);
+  color:var(--ink);
+  margin:0;
+}
+/* ⚠️ The effective/updated dates are CONTENT, not a label, so they are set in
+   plain sentence case. The app learned this the hard way: letterspaced caps
+   are a labelling device, and putting content in them made it hard to read
+   (tester feedback, 2026-09-08). */
+/* ⚠️ A CLASS, not "h1 + p". Delete account has no dates line, so an adjacent-
+   sibling rule shrank its opening sentence to 13px grey - it styled the
+   position rather than the thing. */
+.doc .doc-dates{font-size:13px;color:var(--muted);margin:12px 0 0}
+.doc .doc-dates strong{font-weight:500}
+
+/* A hairline above every numbered section. This is the whole structure of the
+   page: no boxes, just a rule and space. */
+.doc h2{
+  font-family:'Work Sans',system-ui,sans-serif;
+  font-weight:700;
+  letter-spacing:-.02em;
+  line-height:1.25;
+  font-size:18px;
+  color:var(--ink);
+  border-top:1px solid var(--rule);
+  margin:38px 0 0;
+  padding-top:30px;
+}
+/* Sub-sections (3.1, 3.2 ...) get NO rule - a rule would make them look like
+   peers of the top-level sections rather than parts of one. */
+.doc h3{
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  letter-spacing:0;
+  line-height:1.4;
+  font-size:15px;
+  color:var(--ink);
+  margin:26px 0 0;
+}
+.doc p{font-size:15px;color:var(--body);line-height:1.7;margin:14px 0 0}
+.doc ul,.doc ol{font-size:15px;color:var(--body);line-height:1.7;margin:14px 0 0;padding-left:20px}
+.doc li{margin:8px 0}
+.doc li::marker{color:var(--faint)}
+.doc strong{font-weight:600;color:var(--ink)}
+.doc em{font-style:italic}
+.doc a{color:var(--ink);text-decoration:underline;text-underline-offset:2px;text-decoration-color:var(--border)}
+.doc a:hover{color:var(--accent);text-decoration-color:var(--accent)}
+.doc hr{border:none;border-top:1px solid var(--rule);margin:44px 0 0}
+
+@media(min-width:700px){
+  .top{padding:38px 22px 6px}
+  .brand{gap:10px}
+  .mark{height:53px}
+  .wordmark{font-size:25px}
+  .doc{padding:30px 22px 90px}
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────────
+   The landing page's footer, unchanged apart from the ../ on its two page
+   links. Same block on all four pages. ⚠️ The extra bottom padding clears
+   the iPhone's home indicator - without it the social icons read as having
+   fallen off the bottom of the screen (Steph, on device 2026-09-08). */
+.foot{
+  border-top:1px solid var(--rule);
+  padding:20px 22px calc(20px + env(safe-area-inset-bottom));
+  font-size:13px;
+  color:var(--muted);
+}
+.foot-inner{
+  max-width:900px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  text-align:center;
+}
+.foot a{color:var(--muted);text-decoration:none}
+.foot a:hover{color:var(--accent)}
+.foot-left{display:flex;flex-direction:column;gap:3px}
+.foot-copy{color:var(--faint)}
+.foot-right{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px}
+.foot-social{display:flex;gap:14px;align-items:center}
+.foot-social a{display:inline-flex}
+.foot-social svg{width:17px;height:17px;fill:var(--muted)}
+.foot-social a:hover svg{fill:var(--accent)}
 </style>
 </head>
 <body>
-<header class="top"><a href="/"><img class="brand-logo" src="/logo.png" alt="Artist Archive"></a></header>
+<header class="top"><a class="brand" href="../">
+  <!-- The mark: three rounded cards, fanned. Inline so it needs no request and
+       has no text inside it, so no font to load. -->
+  <svg class="mark" viewBox="6 -1 175 206" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Artist Archive">
+    <g transform="rotate(-17 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#8C2340" stroke-width="7"/></g>
+    <g transform="rotate(-8.5 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#12100E" stroke-width="7"/></g>
+    <rect x="60" y="26" width="118" height="168" rx="14" fill="#12100E"/>
+  </svg>
+  <p class="wordmark"><span class="a1">Artist</span> <span class="a2">Archive</span></p>
+</a></header>
 <article class="doc">
-  <a class="doc-back" href="/">&larr; Back to home</a>
+  <a class="doc-back" href="../">&larr; Back to home</a>
   <h1>Delete your account</h1>
   <p>This page explains how to delete your Artist Archive account and the information linked to it.</p>
 
@@ -63,8 +226,12 @@ a:hover{text-decoration:underline}
   <h2>What may be kept briefly</h2>
   <p>Some limited information may remain for a short time in secure backups, or where we are required to keep it by law, before it is removed. This is explained in our <a href="/privacypolicy/">Privacy Policy</a> under "How long information is kept".</p>
 
-  <hr>
-  <p class="doc-foot"><a href="/privacypolicy/">Privacy Policy</a> &middot; <a href="/termsofservice/">Terms of Service</a> &middot; <a href="/">Home</a></p>
 </article>
+<footer class="foot">
+  <div class="foot-inner">
+    <span class="foot-left"><span>Coming soon to iOS &amp; Android</span><span class="foot-copy">Artist Archive &copy; 2026</span></span>
+    <span class="foot-right"><a href="../privacypolicy/">Privacy Policy</a><a href="../termsofservice/">Terms of Service</a><a href="mailto:support@artistarchiveapp.com">Contact</a><span class="foot-social"><a href="https://www.instagram.com/artistarchiveapp" target="_blank" rel="noopener" aria-label="Artist Archive on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a><a href="https://www.facebook.com/artistarchiveapp" target="_blank" rel="noopener" aria-label="Artist Archive on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a><a href="https://www.tiktok.com/@artistarchiveapp" target="_blank" rel="noopener" aria-label="Artist Archive on TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.08-.14 1.62.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></span></span>
+  </div>
+</footer>
 </body>
 </html>
