@@ -61,3 +61,28 @@ so its only remaining function was as a merge hazard.
 ✅ **The founder photo is on `main` as `founder.jpg`** rather than only in the
 tag, because it is the one thing on that branch that is genuinely
 irreplaceable and will certainly be used again. Nothing references it yet.
+
+## The card-stack logo, archived 2026-09-08
+
+The whole brand changed again the same day, hours after the card-stack kit
+went live. Steph: *"im not feeling the black card at the front of the logo"*.
+The new direction has **no symbol at all** - the name is the mark.
+
+| File | Was |
+|---|---|
+| `favicon-cardstack.svg` | The card mark on a rounded white ground. |
+| `favicon-32-cardstack.png`, `favicon-192-cardstack.png` | Same, rastered. |
+| `apple-touch-icon-cardstack.png` | The card app icon. |
+| `og-image-cardstack.png` | The card lockup, 1200x630. Only two days old. |
+| `logo-cardstack.png` | The horizontal card lockup. |
+
+⭐ **AND ONE TRAP WENT WITH IT.** The card lockup set its wordmark in LIVE
+Archivo, and an SVG loaded through an `<img>` cannot use a webfont the page has
+loaded - so the words fell back to Helvetica. Every page had to inline the mark
+as SVG and set the name as real HTML text to work around it. ▶️ The new kit
+ships the type as OUTLINES, so all four pages are now one `<img>` and the site
+no longer loads Archivo at all.
+
+⚠️ **The full card-stack kit lives in the APP repo**, at
+`assets/archive/logo-cardstack/` - mark, lockups, icons and favicons. Only the
+files the website actually served are kept here.

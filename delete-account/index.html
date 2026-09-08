@@ -13,10 +13,13 @@
 <meta name="theme-color" content="#FFFFFF">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Archivo 800 is the LOGO's typeface (the designer's spec). Work Sans and Inter
-     are the app's. Same three faces as the landing page, so the whole site and
-     the app read as one thing. -->
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Work+Sans:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Work Sans and Inter are the app's own faces, so the site and the app read
+     as one thing. The logo's typeface is not loaded: it is outlined inside
+     wordmark.svg. -->
+<!-- ⭐ ARCHIVO IS GONE from this request. It was loaded for the wordmark and
+     nothing else, and the wordmark is an image now - so every page drops a
+     whole font file. -->
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* The app's tokens, exactly: docs/redesign.md section 4.1.
    ⚠️ Keep this block IDENTICAL across index.html and the three legal pages.
@@ -55,10 +58,12 @@ a{color:var(--ink)}
 a:hover{color:var(--accent)}
 
 /* ── The brand block ──────────────────────────────────────────────────────
-   The mark is INLINE SVG and the wordmark is real text - NOT <img src="logo.svg">.
-   An SVG loaded through <img> is isolated from the page, so it cannot use a
-   webfont the page has loaded, and the logo's live Archivo wordmark would
-   silently fall back to Helvetica. */
+   ⭐ ONE <img>, and that is new (2026-09-08). Until the name-tile kit landed the
+   logo set its wordmark in LIVE Archivo, and an SVG loaded through <img> is
+   isolated from the page - it cannot use a webfont the page has loaded, so the
+   words fell back to Helvetica. That trap is why this used to be an inline SVG
+   beside real HTML text, on all four pages.
+   ▶️ The new kit ships the type as OUTLINES, so the trap is gone with it. */
 .top{display:flex;justify-content:center;padding:30px 22px 4px}
 /* Horizontal lockup: mark on the left, wordmark beside it. The two numbers are
    measured off the designer's assets/logo/lockup-horizontal.svg, so this matches
@@ -66,19 +71,15 @@ a:hover{color:var(--accent)}
    font-size tall, the gap between them is 0.39em, and the two are centred on
    each other (the mark spans y 14-185 and the text sits 70-128, both centred
    on 99). */
-.brand{display:flex;flex-direction:row;align-items:center;gap:8px;text-decoration:none}
+.brand{display:flex;text-decoration:none}
 .brand:hover{text-decoration:none}
-.mark{height:45px;width:auto;display:block}
-.wordmark{
-  font-family:'Archivo',system-ui,sans-serif;
-  font-weight:800;
-  letter-spacing:-.03em;
-  font-size:21px;
-  line-height:1;
-  margin:0;
-  color:var(--ink);
-}
-.wordmark .a2{color:var(--accent)}
+/**
+ * ⚠️ Sized by HEIGHT, with width:auto. The wordmark is 7.84:1 - a width of even
+ * 300px would be 38px tall and dwarf the page's own heading.
+ * ⚠️ width and height are on the <img> tag as well, so the row does not jump
+ * while the SVG loads.
+ */
+.wordmark-img{height:26px;width:auto;display:block}
 
 /* ── The document ─────────────────────────────────────────────────────────
    No card, no shadow, no radius. The text sits straight on the white ground
@@ -203,14 +204,13 @@ a:hover{color:var(--accent)}
 </head>
 <body>
 <header class="top"><a class="brand" href="../">
-  <!-- The mark: three rounded cards, fanned. Inline so it needs no request and
-       has no text inside it, so no font to load. -->
-  <svg class="mark" viewBox="6 -1 175 206" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Artist Archive">
-    <g transform="rotate(-17 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#8C2340" stroke-width="7"/></g>
-    <g transform="rotate(-8.5 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#12100E" stroke-width="7"/></g>
-    <rect x="60" y="26" width="118" height="168" rx="14" fill="#12100E"/>
-  </svg>
-  <p class="wordmark"><span class="a1">Artist</span> <span class="a2">Archive</span></p>
+  <!-- 🚨 ONE IMAGE NOW (2026-09-08). The brand has NO symbol any more - the name
+       is the mark - so there is nothing to sit beside the words.
+       ⭐ AND IT CAN BE AN <img> AT LAST. The old lockup set its wordmark in LIVE
+       Archivo, which an SVG loaded through <img> cannot reach, so this page had
+       to inline the mark and set the words as real HTML text. The new kit ships
+       the type as OUTLINES, so one file does the whole job. -->
+  <img class="wordmark-img" src="/wordmark.svg" alt="Artist Archive" width="576" height="74">
 </a></header>
 <article class="doc">
   <a class="doc-back" href="../">&larr; Back to home</a>

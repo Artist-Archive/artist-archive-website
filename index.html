@@ -22,9 +22,10 @@
 <meta name="twitter:image" content="https://www.artistarchiveapp.com/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Archivo 800 is the LOGO's typeface (the designer's spec). Work Sans and Inter
-     are the app's, so the page and the app read as one thing. -->
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Work+Sans:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Work Sans and Inter are the app's own faces, so the page and the app read as
+     one thing. ⭐ ARCHIVO IS GONE: it was loaded for the wordmark and nothing
+     else, and the wordmark is an image now - so the page drops a whole font. -->
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* The app's tokens, exactly: docs/redesign.md section 4.1. */
 :root{
@@ -63,27 +64,23 @@ a{color:var(--ink);text-decoration:none}
 a:hover{text-decoration:underline}
 
 /* ── The brand block ──────────────────────────────────────────────────────
-   The mark is INLINE SVG and the wordmark is real text.
-   An <img src="logo.svg"> would not work here: that SVG sets its wordmark in
-   live Archivo, and an SVG loaded through <img> is isolated from the page, so
-   it cannot use a webfont the page has loaded — it would silently fall back to
-   Helvetica. Inline + real text also stays crisp at any size, is selectable,
-   and is readable by search engines. */
-.brand{display:flex;flex-direction:column;align-items:center;gap:12px;margin:0 0 44px}
-.mark{width:46px;height:auto;display:block}
-.wordmark{
-  font-family:'Archivo',system-ui,sans-serif;
-  font-weight:800;
-  letter-spacing:-.03em;
-  font-size:30px;
-  line-height:1;
-  /* A <p>'s default 1em top/bottom margin is ~30px at this size, and it stacked
-     on top of .brand's own margin — the wordmark sat marooned above the page.
-     Seen in the browser, not reasoned about. */
-  margin:0;
-}
-.wordmark .a1{color:var(--ink)}
-.wordmark .a2{color:var(--accent)}
+   ⭐ ONE <img>, and that is new (2026-09-08). Until the name-tile kit landed the
+   logo set its wordmark in LIVE Archivo, and an SVG loaded through <img> is
+   isolated from the page: it cannot use a webfont the page has loaded, so the
+   words fell back to Helvetica. That trap is the whole reason this used to be
+   an inline SVG sitting beside real HTML text, on all four pages.
+   ▶️ The new kit ships the type as OUTLINES, so the trap is gone with it.
+   ⚠️ WHAT IS LOST, and it is worth knowing: the name is no longer selectable
+   text and no longer readable as words by a search engine. ▶️ The alt attribute
+   carries it, and the <h1> below says the product's name in real text anyway,
+   so nothing important depends on the logo being read. */
+.brand{display:flex;justify-content:center;margin:0 0 40px}
+/**
+ * ⚠️ Sized by WIDTH here and by height on the legal pages, because this is the
+ * hero and those are page headers. width/height on the tag itself reserves the
+ * space so the hero does not jump while the SVG loads.
+ */
+.wordmark-img{width:186px;height:auto;display:block}
 
 /* ── Hero ─────────────────────────────────────────────────────────────── */
 .hero{
@@ -230,9 +227,8 @@ a:hover{text-decoration:underline}
    One breakpoint. The waitlist becomes a single row, and the footer spreads to
    its two ends. Everything above scales with clamp() and needs nothing here. */
 @media(min-width:700px){
-  .brand{margin-bottom:52px}
-  .mark{width:54px}
-  .wordmark{font-size:36px}
+  .brand{margin-bottom:50px}
+  .wordmark-img{width:224px}
   /* Room for the headline to sit on ONE line and the two support lines to stop
      breaking mid-thought. ⚠️ The waitlist stays narrow on purpose — a form field
      stretched to 880px is a worse target, not a better one. */
@@ -252,14 +248,15 @@ a:hover{text-decoration:underline}
 <main class="hero">
   <div class="hero-inner">
     <div class="brand">
-      <!-- The mark: three rounded cards, fanned. Inline so it needs no request
-           and can be recoloured; no text inside it, so no font to load. -->
-      <svg class="mark" viewBox="6 -1 175 206" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Artist Archive">
-        <g transform="rotate(-17 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#8C2340" stroke-width="7"/></g>
-        <g transform="rotate(-8.5 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#12100E" stroke-width="7"/></g>
-        <rect x="60" y="26" width="118" height="168" rx="14" fill="#12100E"/>
-      </svg>
-      <p class="wordmark"><span class="a1">Artist</span> <span class="a2">Archive</span></p>
+      <!-- 🚨 ONE IMAGE (2026-09-08). No symbol any more - the name IS the mark.
+           ⭐ It can be an <img> because the new kit ships the type as OUTLINES.
+           The old lockup set its words in LIVE Archivo, which an SVG loaded
+           through <img> cannot reach, and that is the whole reason this block
+           used to be an inline SVG next to real HTML text.
+           ⚠️ THE STACKED wordmark, not the one-line one: at 7.84:1 the one-line
+           version is 500px wide at any readable height and will not fit a
+           360px phone. Stacked is 1.96:1. -->
+      <img class="wordmark-img" src="/wordmark-stacked.svg" alt="Artist Archive" width="333" height="170">
     </div>
 
     <p class="eyebrow">Coming soon</p>
