@@ -30,3 +30,32 @@ branding.** They are live and still referenced by every page's `og:image` meta
 tag, so social link previews continue to show the old logo. They are not
 archived because they have not been replaced yet — a new 1200x630 image is
 outstanding, and it is a design job rather than a code one.
+
+## The launch-redesign branch is gone, and that is fine
+
+**2026-09-08.** The branch was deleted. Everything that was on it is kept by
+the tag `archive/launch-redesign-2026-09-08`, which points at the same commit
+the branch tip did.
+
+```
+git checkout archive/launch-redesign-2026-09-08
+```
+
+It holds the founder photo, five screenshots of the pre-redesign app, and a
+much longer landing page: feature sections, store badges and a founder story
+block. **The copy in there is worth reading again when the real launch page is
+built.**
+
+⚠️ **Why a tag and not just deleting.** A deleted branch's commits stop being
+reachable and GitHub can eventually collect them. A tag keeps them forever, so
+this is reversible.
+
+🚨 **Why the branch had to go.** It was 19 commits ahead of `main` but **13
+behind**, and those 13 are the entire 2026-09-08 redesign. Merging it would
+have put the old walnut branding back over the whole site. It also carried the
+old Gmail address in three files. It could never publish anything on its own,
+so its only remaining function was as a merge hazard.
+
+✅ **The founder photo is on `main` as `founder.jpg`** rather than only in the
+tag, because it is the one thing on that branch that is genuinely
+irreplaceable and will certainly be used again. Nothing references it yet.
