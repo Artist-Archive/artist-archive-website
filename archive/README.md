@@ -25,11 +25,13 @@ Pages serves everything as-is rather than running Jekyll — which means a
 `_`-prefixed name would not have hidden it either. These are old logos, not
 secrets, so that is fine; just do not treat this folder as private.
 
-⚠️ **`og-image.png` and `og-image.jpg` are NOT here, and they are still the OLD
-branding.** They are live and still referenced by every page's `og:image` meta
-tag, so social link previews continue to show the old logo. They are not
-archived because they have not been replaced yet — a new 1200x630 image is
-outstanding, and it is a design job rather than a code one.
+✅ **`og-image.png` and `og-image.jpg` ARE here now, as of 2026-09-08.** The
+designer delivered the new 1200x630 image, so the old walnut one moved in here
+with it. `og-image.jpg` was already an orphan: nothing referenced it.
+
+⚠️ **Only `index.html` carries `og:image`.** The three legal pages have no
+social-preview tags at all, so a link to the privacy policy previews as bare
+text. Left that way on purpose - nobody shares a privacy policy.
 
 ## The launch-redesign branch is gone, and that is fine
 
