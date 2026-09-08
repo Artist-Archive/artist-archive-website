@@ -12,7 +12,17 @@
        window instead cannot clip anything: it only ever reveals more.
        The mark occupies x 6..181 and y -1..205. A 264 square centres that with
        roughly 14% clear on every side. -->
-  <rect x="-38.5" y="-30" width="264" height="264" fill="#FFFFFF"/>
+  <!-- 🔵 ROUNDED, 2026-09-08 (Steph: "can the favicon have rounded edges").
+       ⚠️ rx=40 on a 264 square is about 15%, which is roughly what iOS and
+       Android use for an app icon. At the 16px a browser tab actually renders
+       this, that is a 2 to 3 pixel corner - enough to read as soft, not enough
+       to read as a circle.
+       ⛔ NOT applied to favicon-32.png, favicon-192.png or apple-touch-icon.png.
+       Rounding those would make their corners TRANSPARENT, and iOS applies its
+       own mask to a touch icon - a pre-rounded one gets rounded twice and shows
+       white gaps at the corners. Both platforms expect an opaque square and do
+       the shaping themselves. -->
+  <rect x="-38.5" y="-30" width="264" height="264" rx="40" fill="#FFFFFF"/>
   <g transform="rotate(-17 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#8C2340" stroke-width="7"/></g>
   <g transform="rotate(-8.5 78 196)"><rect x="60" y="26" width="118" height="168" rx="14" fill="#ffffff" stroke="#12100E" stroke-width="7"/></g>
   <rect x="60" y="26" width="118" height="168" rx="14" fill="#12100E"/>
