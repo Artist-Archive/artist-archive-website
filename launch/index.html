@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Artist Archive | Bridal trial app for makeup artists &amp; hairstylists</title>
+<meta name="description" content="Trial notes, products, shades and photos for every client, together in one place. Built by a working bridal makeup artist, for makeup artists and hairstylists.">
+
+<!--
+  🚨 THE LAUNCH SITE. NOT PUBLISHED YET.
+  ▶️ The live site at artistarchiveapp.com is still the WAITLIST, which is
+  correct until the apps are actually downloadable (Steph, 2026-09-17).
+  ⚠️ This lives at /launch/ so it can be looked at without replacing anything.
+  ⛔ On launch day this replaces the root index.html - it does not sit beside it.
+
+  ⚠️ THE WAITLIST FORM IS COPIED EXACTLY from the live page: same action URL,
+  same EMAIL field name, same honeypot name. It is collecting real addresses, so
+  ⛔ do not "tidy" any of those three strings.
+-->
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ─────────────────────────────────────────────────────────────────────────
+   TOKENS — the app's own palette (src/theme/themes.ts). Nothing invented.
+   ───────────────────────────────────────────────────────────────────────── */
+:root{
+  --ground:#FFFFFF;
+  --cream:#F6F1EC;      /* the app's splash */
+  --blush:#FAF0F2;      /* accentSoft, flattened */
+  --ink:#12100E;
+  --body:#4A4542;
+  --muted:#8B857F;
+  --faint:#ADA7A1;
+  --rule:#EDEAE7;
+  --border:#E3DEDA;
+  --accent:#8C2340;
+  --accent-deep:#7C2A42;
+  --grad-1:#E2BFC9; --grad-2:#B3697F; --grad-3:#7C2A42;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --display:'Work Sans',system-ui,sans-serif;
+  --page:min(1120px,100% - 2.5rem);
+  --r:14px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--ground);color:var(--body);
+  font-family:var(--sans);font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+/* 🐞 `height:auto` IS NOT OPTIONAL HERE. Every image carries width and height
+   attributes (so the page does not jump while they load), and those attributes
+   set a PRESENTATIONAL height. ▶️ Without this the phones rendered 330px wide
+   and a full 1600px tall - stretched, and a 1952px hero. */
+img{max-width:100%;height:auto;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+h1,h2,h3{font-family:var(--display);color:var(--ink);margin:0;letter-spacing:-0.02em;line-height:1.08}
+/* ⚠️ clamp() so the headline is big on a laptop and still fits a 360px phone
+   without a single media query. */
+h1{font-weight:700;font-size:clamp(2.6rem,7.2vw,4.6rem)}
+h2{font-weight:700;font-size:clamp(1.9rem,4.4vw,3rem)}
+h3{font-weight:600;font-size:1.22rem;letter-spacing:-0.01em}
+p{margin:0}
+
+.wrap{width:var(--page);margin-inline:auto}
+.eyebrow{
+  font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 .9rem;
+}
+.lede{font-size:clamp(1.05rem,1.9vw,1.28rem);color:var(--body);max-width:46ch}
+
+/* ── NAV ──────────────────────────────────────────────────────────────── */
+.nav{
+  position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent;transition:border-color .2s ease;
+  padding-top:env(safe-area-inset-top,0px);
+}
+.nav[data-stuck="true"]{border-bottom-color:var(--rule)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:64px}
+.brand{display:flex;align-items:center;gap:.55rem;color:var(--ink)}
+.brand:hover{text-decoration:none}
+.brand-mark{font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-.01em}
+.brand-mark em{font-style:normal;color:var(--accent)}
+.nav-links{display:none;gap:1.9rem}
+.nav-links a{color:var(--body);font-size:.92rem;font-weight:500}
+.nav-links a:hover{color:var(--ink);text-decoration:none}
+@media (min-width:860px){.nav-links{display:flex}}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:var(--sans);font-size:.92rem;font-weight:600;
+  padding:.72rem 1.25rem;border-radius:10px;border:1px solid var(--accent);
+  background:var(--accent);color:#fff;cursor:pointer;
+  transition:transform .12s ease,background .16s ease;
+}
+.btn:hover{background:var(--accent-deep);border-color:var(--accent-deep);text-decoration:none}
+.btn:active{transform:translateY(1px)}
+.btn-quiet{background:transparent;color:var(--ink);border-color:var(--border)}
+.btn-quiet:hover{background:var(--cream);border-color:var(--border)}
+
+/* ── HERO ─────────────────────────────────────────────────────────────── */
+.hero{position:relative;overflow:hidden;padding:clamp(3.5rem,9vw,6.5rem) 0 0}
+/* ⭐ The house gradient as a soft bloom behind the headline, not a slab.
+   Same three stops the app uses over a missing photo. */
+.hero::before{
+  content:"";position:absolute;inset:-30% 40% 30% -30%;
+  background:radial-gradient(60% 60% at 40% 40%,var(--grad-1) 0%,rgba(226,191,201,0) 70%);
+  opacity:.5;pointer-events:none;
+}
+.hero-in{position:relative;display:grid;gap:clamp(2.5rem,5vw,4rem);align-items:center}
+@media (min-width:900px){.hero-in{grid-template-columns:1.05fr .95fr}}
+.hero h1{margin-bottom:1.3rem;text-wrap:balance}
+.hero .lede{margin-bottom:2rem}
+.cta-row{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.cta-note{font-size:.86rem;color:var(--muted);margin-top:1rem}
+
+/* The waitlist form, pre-launch. */
+.waitlist{display:flex;flex-wrap:wrap;gap:.6rem;max-width:30rem}
+.waitlist input[type=email]{
+  flex:1 1 15rem;font:inherit;font-size:.95rem;color:var(--ink);
+  padding:.72rem .9rem;border:1px solid var(--border);border-radius:10px;background:#fff;
+}
+.waitlist input[type=email]::placeholder{color:var(--faint)}
+.waitlist input[type=email]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--blush)}
+
+.hero-shot{position:relative;justify-self:center;max-width:clamp(230px,34vw,330px)}
+.hero-shot img{filter:drop-shadow(0 26px 48px rgba(18,16,14,.16))}
+
+/* ── STRIP ────────────────────────────────────────────────────────────── */
+.strip{margin-top:clamp(3rem,7vw,5rem);border-top:1px solid var(--rule);background:var(--cream)}
+.strip-in{
+  display:grid;gap:1.6rem;padding:2.2rem 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+}
+.strip b{display:block;font-family:var(--display);font-size:1.55rem;color:var(--ink);font-weight:700}
+.strip span{font-size:.92rem;color:var(--body)}
+
+/* ── FEATURES ─────────────────────────────────────────────────────────── */
+.features{padding:clamp(4rem,9vw,7rem) 0;display:grid;gap:clamp(4rem,9vw,7rem)}
+.feature{display:grid;gap:clamp(2rem,5vw,4rem);align-items:center}
+@media (min-width:900px){
+  .feature{grid-template-columns:1fr 1fr}
+  .feature:nth-child(even) .feature-text{order:2}
+}
+.feature-shot{justify-self:center;max-width:clamp(220px,30vw,300px)}
+.feature-shot img{filter:drop-shadow(0 22px 42px rgba(18,16,14,.14))}
+.feature h2{margin-bottom:1rem;text-wrap:balance}
+.feature .lede{font-size:1.05rem}
+.points{margin:1.5rem 0 0;padding:0;list-style:none;display:grid;gap:.1rem}
+.points li{display:flex;gap:.7rem;padding:.7rem 0;border-top:1px solid var(--rule);font-size:.98rem;color:var(--body)}
+.points li::before{content:"";flex:none;width:7px;height:7px;margin-top:.55rem;border-radius:50%;background:var(--accent)}
+
+/* ── COMMUNITY ────────────────────────────────────────────────────────── */
+.community{
+  background:linear-gradient(158deg,var(--grad-1) 0%,var(--grad-2) 46%,var(--grad-3) 100%);
+  color:#fff;padding:clamp(3.5rem,8vw,6rem) 0;
+}
+.community h2{color:#fff}
+.community .lede{color:rgba(255,255,255,.92)}
+.community-in{display:grid;gap:clamp(2rem,5vw,3.5rem);align-items:center}
+@media (min-width:900px){.community-in{grid-template-columns:1.1fr .9fr}}
+.community .btn{background:#fff;color:var(--accent);border-color:#fff}
+.community .btn:hover{background:var(--blush);border-color:var(--blush);color:var(--accent-deep)}
+.community-shot{justify-self:center;max-width:clamp(210px,28vw,280px)}
+.community-shot img{filter:drop-shadow(0 22px 44px rgba(18,16,14,.26))}
+
+/* ── FOUNDER ──────────────────────────────────────────────────────────── */
+.founder{padding:clamp(4rem,9vw,7rem) 0}
+.founder-in{display:grid;gap:clamp(2rem,5vw,3.5rem);align-items:center}
+@media (min-width:760px){.founder-in{grid-template-columns:auto 1fr}}
+.founder img{width:clamp(150px,22vw,210px);aspect-ratio:1;object-fit:cover;border-radius:50%;justify-self:center}
+.founder blockquote{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,2.6vw,1.75rem);color:var(--ink);line-height:1.35;letter-spacing:-.01em}
+.founder cite{display:block;margin-top:1.1rem;font-style:normal;font-size:.92rem;color:var(--muted)}
+
+/* ── PRICE ────────────────────────────────────────────────────────────── */
+.price{background:var(--cream);padding:clamp(4rem,9vw,6.5rem) 0;border-top:1px solid var(--rule)}
+.plans{display:grid;gap:1.1rem;margin-top:2.4rem;grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
+.plan{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:1.6rem}
+.plan[data-featured="true"]{border-color:var(--accent);border-width:2px}
+.plan h3{margin-bottom:.35rem}
+.plan .tag{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.plan ul{margin:1.1rem 0 0;padding:0;list-style:none;display:grid;gap:.55rem;font-size:.95rem}
+.plan li{display:flex;gap:.6rem}
+.plan li svg{flex:none;margin-top:.28rem}
+
+/* ── FAQ ──────────────────────────────────────────────────────────────── */
+.faq{padding:clamp(4rem,9vw,7rem) 0}
+.faq-list{margin-top:2.2rem;border-top:1px solid var(--rule)}
+details{border-bottom:1px solid var(--rule)}
+summary{
+  cursor:pointer;list-style:none;padding:1.15rem 2rem 1.15rem 0;position:relative;
+  font-family:var(--display);font-weight:600;font-size:1.05rem;color:var(--ink);
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:"";position:absolute;right:.35rem;top:1.55rem;width:9px;height:9px;
+  border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);
+  transform:rotate(45deg);transition:transform .2s ease;
+}
+details[open] summary::after{transform:rotate(-135deg)}
+details p{padding:0 0 1.2rem;max-width:62ch;font-size:.99rem}
+
+/* ── CLOSE + FOOTER ───────────────────────────────────────────────────── */
+.close{background:var(--ink);color:#fff;padding:clamp(3.5rem,8vw,5.5rem) 0;text-align:center}
+.close h2{color:#fff;margin-bottom:1rem}
+.close p{color:rgba(255,255,255,.76);max-width:38ch;margin:0 auto 2rem}
+.close .waitlist{margin-inline:auto;justify-content:center}
+.close .btn-quiet{color:#fff;border-color:rgba(255,255,255,.35)}
+.close .btn-quiet:hover{background:rgba(255,255,255,.08)}
+footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:var(--muted)}
+.foot-in{display:flex;flex-wrap:wrap;gap:.8rem 1.6rem;align-items:center;justify-content:space-between}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.2rem}
+.foot-links a{color:var(--body)}
+
+/* ── REVEAL ───────────────────────────────────────────────────────────── */
+/* ⚠️ The .reveal class is added BY SCRIPT, so with JavaScript off nothing is
+   ever hidden. ⛔ A page that needs JS to show its own words is broken. */
+.js .reveal{opacity:0;transform:translateY(14px)}
+.js .reveal.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.22,.61,.36,1)}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none;transition:none}
+}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+
+<a href="#main" class="sr-only">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">
+      <span class="brand-mark">Artist <em>Archive</em></span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#features">What it does</a>
+      <a href="#community">Community</a>
+      <a href="#price">Pricing</a>
+      <a href="#faq">Questions</a>
+    </nav>
+    <a class="btn" href="#get">Join the waitlist</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" id="top">
+  <div class="wrap hero-in">
+    <div class="hero-text">
+      <p class="eyebrow">Coming soon to iOS and Android</p>
+      <h1>Your clients' looks, remembered.</h1>
+      <!-- ⭐ THE HOOK IS A SCENE, NOT A FEATURE LIST. Six weeks between the
+           trial and the day is the real gap this app exists to close, and every
+           bridal artist has been caught in it. ⛔ Do not turn this back into
+           "track your clients and products in one place". -->
+      <p class="lede">Six weeks after the trial, your bride asks for "the same lip as last time". You'll know which one it was, which shade, and exactly where it went.</p>
+      <form class="waitlist" id="get" action="https://artistarchiveapp.us2.list-manage.com/subscribe/post?u=254ab4cf1fcc0622e6ffd9266&amp;id=df3c59656b&amp;f_id=00aac3e1f0" method="post" target="_blank" novalidate>
+        <input type="email" name="EMAIL" placeholder="Your email address" aria-label="Email address" required>
+        <!-- Mailchimp anti-bot honeypot: real people leave this empty. -->
+        <div aria-hidden="true" style="position:absolute;left:-5000px"><input type="text" name="b_254ab4cf1fcc0622e6ffd9266_df3c59656b" tabindex="-1" value=""></div>
+        <button class="btn" type="submit">Join the waitlist</button>
+      </form>
+      <p class="cta-note">Free to start. No card, no trial countdown.</p>
+    </div>
+    <div class="hero-shot reveal">
+      <img src="shots/home.png" width="1200" height="1600" alt="The Artist Archive home screen, showing the next big day with a countdown and the clients coming up." fetchpriority="high">
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="wrap strip-in">
+      <div><b>The trial</b><span>Every product and shade you reached for, with photos of the finished face.</span></div>
+      <div><b>The countdown</b><span>Each client's date, counting down, so none of them creeps up on you.</span></div>
+      <div><b>The morning</b><span>Who's in the chair at 8:30, and what they asked for.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="features wrap" id="features">
+
+  <article class="feature reveal">
+    <div class="feature-text">
+      <p class="eyebrow">Clients</p>
+      <h2>Never lose track of a big day</h2>
+      <p class="lede">Twelve weddings in a season and they start to blur. Every client keeps their own date, their brief and their notes, and the next one sits at the top of your screen with the days ticking down.</p>
+      <ul class="points">
+        <li>The brief, the notes, the allergies, the skin and hair details, all in one place</li>
+        <li>Where they're getting ready and what time you start, there the morning you need it</li>
+        <li>Drop the big day and every trial straight into your phone's calendar</li>
+      </ul>
+    </div>
+    <div class="feature-shot"><img src="shots/client.png" width="1200" height="1600" alt="A client page in Artist Archive, with a photo, the wedding date and a countdown." loading="lazy"></div>
+  </article>
+
+  <article class="feature reveal">
+    <div class="feature-text">
+      <p class="eyebrow">Appointments</p>
+      <h2>Every trial, ready to recreate</h2>
+      <p class="lede">You already do the hard part at the trial. This is the bit that means you don't have to hold it in your head until January: every product, every shade, and photos of the finished face.</p>
+      <ul class="points">
+        <li>Tick products off your own kit instead of typing them out again</li>
+        <li>Shades ordered the way you read them, so 2 comes before 10</li>
+        <li>A face chart for where everything actually went</li>
+      </ul>
+    </div>
+    <div class="feature-shot"><img src="shots/appointment.png" width="1200" height="1600" alt="An appointment in Artist Archive, showing the photos, the makeup choices and the products used." loading="lazy"></div>
+  </article>
+
+  <article class="feature reveal">
+    <div class="feature-text">
+      <p class="eyebrow">The day sheet</p>
+      <h2>The morning, hour by hour</h2>
+      <p class="lede">Bride at 11:30, three bridesmaids before that, and the mother of the bride who booked late. The times work themselves out as you add people, and you drag to reorder when the morning moves. Which it will.</p>
+      <ul class="points">
+        <li>The notes you only learn once: the door code, where to park, who's nervous</li>
+        <li>It saves as you type, because nobody is pressing Save at 7am</li>
+        <li>Send it out as a PDF, free, always</li>
+      </ul>
+    </div>
+    <div class="feature-shot"><img src="shots/daysheet.png" width="1200" height="1600" alt="A wedding-day sheet listing each person by time with notes beside them." loading="lazy"></div>
+  </article>
+
+  <article class="feature reveal">
+    <div class="feature-text">
+      <p class="eyebrow">Check a date</p>
+      <h2>Answer an enquiry in seconds</h2>
+      <p class="lede">"Are you free on the 14th?" Open the month, look for a mark, answer it. You're back to what you were doing in about four seconds.</p>
+      <ul class="points">
+        <li>Trials and big days marked on the same month</li>
+        <li>Tap a day to see who's already in it</li>
+        <li>Asked for by an artist testing the app, and built the same week</li>
+      </ul>
+    </div>
+    <div class="feature-shot"><img src="shots/calendar.png" width="1200" height="1600" alt="A month calendar in Artist Archive with marks on the booked days." loading="lazy"></div>
+  </article>
+
+  <article class="feature reveal">
+    <div class="feature-text">
+      <p class="eyebrow">Your kit</p>
+      <h2>Log what you used in a tap</h2>
+      <p class="lede">Build it once from a catalogue that already knows the brands you carry, star your go-tos, and logging a look turns into tapping down a list you recognise.</p>
+      <ul class="points">
+        <li>Thousands of real products and shades, so you're picking, not typing</li>
+        <li>Add your own, and it starts finishing your brand names for you</li>
+        <li>A wishlist for the things you've got your eye on</li>
+      </ul>
+    </div>
+    <div class="feature-shot"><img src="shots/kit.png" width="1200" height="1600" alt="The In your kit screen, listing products by category with favourites starred." loading="lazy"></div>
+  </article>
+
+  <article class="feature reveal">
+    <div class="feature-text">
+      <p class="eyebrow">Gallery</p>
+      <h2>All your work, in one place</h2>
+      <p class="lede">Every look you've ever done, gathered up as you add photos to appointments. Your portfolio builds itself while you're busy doing the work.</p>
+      <ul class="points">
+        <li>Search it by client or by tag</li>
+        <li>Grouped by month, newest first</li>
+        <li>They're your photos. Download them whenever you want them</li>
+      </ul>
+    </div>
+    <div class="feature-shot"><img src="shots/gallery.png" width="1200" height="1600" alt="The gallery in Artist Archive showing finished looks grouped by month." loading="lazy"></div>
+  </article>
+
+</section>
+
+<section class="community" id="community">
+  <div class="wrap community-in">
+    <div>
+      <p class="eyebrow" style="color:rgba(255,255,255,.85)">The community</p>
+      <h2>Ask the artists who have been there</h2>
+      <p class="lede">What to charge. What to carry. What to say to the enquiry that wants your day for half your rate. And which setting spray actually survives a nor'wester. A private board for makeup artists and hairstylists, and nobody else.</p>
+      <p style="margin-top:2rem"><a class="btn" href="https://community.artistarchiveapp.com">Look inside</a></p>
+    </div>
+    <div class="community-shot"><img src="shots/community.png" width="1200" height="1600" alt="The Artist Archive community board, showing threads from other artists." loading="lazy"></div>
+  </div>
+</section>
+
+<section class="founder wrap">
+  <div class="founder-in">
+    <img src="/founder.jpg" width="420" height="420" alt="Steph, the bridal makeup artist who built Artist Archive." loading="lazy">
+    <div>
+      <p class="eyebrow">Why it exists</p>
+      <!-- ✅ STEPH'S OWN WORDS, lifted from the community intro post she wrote on
+           2026-09-01. ⛔ DO NOT invent a founder quote: the first draft of this
+           page had one, and putting sentences in her mouth is the one thing a
+           page about a person built by one person must never do.
+           ⬜ If she wants to write a longer one, this is the place for it. -->
+      <blockquote>"I'm a bridal makeup artist in Christchurch, and I built Artist Archive because I needed it."</blockquote>
+      <cite>Steph &middot; @makeupbystephnz</cite>
+    </div>
+  </div>
+</section>
+
+<section class="price" id="price">
+  <div class="wrap">
+    <p class="eyebrow">Pricing</p>
+    <h2>Free to start, properly</h2>
+    <p class="lede" style="margin-top:1rem">Ten clients, the day sheet and PDF export cost nothing, for as long as you want them. Premium is for when the business outgrows the free plan.</p>
+    <div class="plans">
+      <div class="plan">
+        <p class="tag">Free</p>
+        <h3>Everything you need to start</h3>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="#12100E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Up to 10 clients</li>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="#12100E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>The wedding-day sheet</li>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="#12100E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF export</li>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="#12100E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Your kit, wishlist and gallery</li>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="#12100E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Calendar sync and reminders</li>
+        </ul>
+      </div>
+      <div class="plan" data-featured="true">
+        <p class="tag">Premium</p>
+        <h3>When the diary fills up</h3>
+        <ul>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="#8C2340" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited clients and appointments</li>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="#8C2340" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>More photos on every look and product</li>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="#8C2340" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Deposits and balances on each client</li>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="#8C2340" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Restock, packing lists and renewals</li>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="#8C2340" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Your own email templates</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq wrap" id="faq">
+  <p class="eyebrow">Questions</p>
+  <h2>The things people ask</h2>
+  <div class="faq-list">
+    <details>
+      <summary>Is it only for bridal?</summary>
+      <p>It grew out of bridal because that is the work it came from. But anything with a trial, a date and a face works the same way, and a lot of it is simply a good record of what you used on somebody.</p>
+    </details>
+    <details>
+      <summary>Does it do bookings and payments?</summary>
+      <p>No, and that is on purpose. There are good apps for taking bookings and money. This is the part nobody built: what you did, what you used, and what they asked for.</p>
+    </details>
+    <details>
+      <summary>Is it for hairstylists too?</summary>
+      <p>Yes. The consultation records hair as well as makeup, and you tell it which you do. Or both.</p>
+    </details>
+    <details>
+      <summary>What happens to my photos?</summary>
+      <p>They stay yours. Nobody else can see your clients or their photos, and you can download or delete them whenever you like. The privacy policy spells out exactly what is stored and where.</p>
+    </details>
+    <details>
+      <summary>Does it work without signal?</summary>
+      <p>Yes. Everything saves to your phone first and syncs when you are back on a connection, which matters in a stone villa with one bar of signal.</p>
+    </details>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <h2>Be first through the door</h2>
+    <p>Leave your email and you will hear the moment it opens. Nothing else, ever.</p>
+    <form class="waitlist" action="https://artistarchiveapp.us2.list-manage.com/subscribe/post?u=254ab4cf1fcc0622e6ffd9266&amp;id=df3c59656b&amp;f_id=00aac3e1f0" method="post" target="_blank" novalidate>
+      <input type="email" name="EMAIL" placeholder="Your email address" aria-label="Email address" required>
+      <div aria-hidden="true" style="position:absolute;left:-5000px"><input type="text" name="b_254ab4cf1fcc0622e6ffd9266_df3c59656b" tabindex="-1" value=""></div>
+      <button class="btn btn-quiet" type="submit">Join the waitlist</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>Artist Archive &copy; 2026 &middot; Christchurch, New Zealand</span>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="/privacypolicy">Privacy</a>
+      <a href="/termsofservice">Terms</a>
+      <a href="https://community.artistarchiveapp.com">Community</a>
+      <a href="/delete-account">Delete your account</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+// ⚠️ The class goes on FIRST, before anything is hidden, so a page with
+// JavaScript disabled never hides its own content.
+document.documentElement.classList.add('js');
+
+// Nav gains a hairline once the page has moved. ⚠️ Passive listener: this must
+// never be the reason a scroll stutters.
+var nav = document.getElementById('nav');
+addEventListener('scroll', function () {
+  nav.dataset.stuck = String(scrollY > 8);
+}, { passive: true });
+
+// Reveal on scroll. ⛔ Anything already on screen is revealed immediately, so
+// the top of the page is never blank while the observer catches up.
+var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var items = document.querySelectorAll('.reveal');
+if (reduced || !('IntersectionObserver' in window)) {
+  items.forEach(function (el) { el.classList.add('in'); });
+} else {
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      // ⚠️ `boundingClientRect.top < 0` catches anything ALREADY SCROLLED PAST -
+      // someone who lands on #price jumps over four sections, and without this
+      // they stay invisible until scrolled back into view.
+      if (!e.isIntersecting && e.boundingClientRect.top > 0) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+  items.forEach(function (el) { io.observe(el); });
+
+  /**
+   * 🚨 THE FAILSAFE, AND IT IS NOT OPTIONAL. Everything with `.reveal` starts
+   * invisible, so ANY reason the observer does not fire - a browser quirk, a
+   * fast jump down the page, something I have not thought of - leaves a blank
+   * page with the words still in the HTML.
+   * ▶️ **Three seconds later, everything is shown regardless.** A missed
+   * animation is nothing; a blank page is the whole site.
+   */
+  setTimeout(function () {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+  }, 3000);
+}
+</script>
+</body>
+</html>
