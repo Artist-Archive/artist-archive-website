@@ -73,6 +73,12 @@ h3{font-weight:600;font-size:1.22rem;letter-spacing:-0.01em}
 p{margin:0}
 
 .wrap{width:var(--page);margin-inline:auto}
+/* 🐞 THE STICKY NAV WAS LANDING ON TOP OF EVERY ANCHOR (Steph, 2026-09-17:
+   "join the waitlist button top right just bumps us somewhere weird on the page
+   and does nothing"). ▶️ Without this, jumping to #features or #get puts the
+   target under the 64px bar, so the page moves and the thing you asked for is
+   hidden behind the header. */
+[id]{scroll-margin-top:86px}
 .eyebrow{
   font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
   color:var(--accent);margin:0 0 .9rem;
@@ -146,7 +152,9 @@ p{margin:0}
 .hero-shot img{filter:drop-shadow(0 26px 48px rgba(18,16,14,.16))}
 
 /* ── STRIP ────────────────────────────────────────────────────────────── */
-.strip{margin-top:clamp(3rem,7vw,5rem);border-top:1px solid var(--rule);background:var(--ground)}
+/* ⚠️ A HAIRLINE EACH SIDE (Steph, 2026-09-17). With only a top rule the three
+   columns ran straight into the first feature and the band had no bottom edge. */
+.strip{margin-top:clamp(3rem,7vw,5rem);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--ground)}
 .strip-in{
   display:grid;gap:1.6rem;padding:2.2rem 0;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -269,7 +277,7 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
       <a href="#price">Pricing</a>
       <a href="#faq">Questions</a>
     </nav>
-    <a class="btn" href="#get">Join the waitlist</a>
+    <a class="btn" href="#get" data-focus="waitlist-email">Join the waitlist</a>
   </div>
 </header>
 
@@ -286,7 +294,7 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
            "track your clients and products in one place". -->
       <p class="lede">Six weeks after the trial, your bride asks for "the same lip as last time". You'll know which one it was, which shade, and exactly where it went.</p>
       <form class="waitlist" id="get" action="https://artistarchiveapp.us2.list-manage.com/subscribe/post?u=254ab4cf1fcc0622e6ffd9266&amp;id=df3c59656b&amp;f_id=00aac3e1f0" method="post" target="_blank" novalidate>
-        <input type="email" name="EMAIL" placeholder="Your email address" aria-label="Email address" required>
+        <input type="email" id="waitlist-email" name="EMAIL" placeholder="Your email address" aria-label="Email address" required>
         <!-- Mailchimp anti-bot honeypot: real people leave this empty. -->
         <div aria-hidden="true" style="position:absolute;left:-5000px"><input type="text" name="b_254ab4cf1fcc0622e6ffd9266_df3c59656b" tabindex="-1" value=""></div>
         <button class="btn" type="submit">Join the waitlist</button>
@@ -518,6 +526,24 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
 // ⚠️ The class goes on FIRST, before anything is hidden, so a page with
 // JavaScript disabled never hides its own content.
 document.documentElement.classList.add('js');
+
+/**
+ * 🐞 THE NAV BUTTON NOW PUTS THE CURSOR IN THE BOX (Steph, 2026-09-17).
+ * ▶️ Before this it was a plain jump to the form's id: the page shifted a
+ * little, the sticky bar covered the target, and nothing looked like it had
+ * happened. ⭐ A button that says Join the waitlist should leave you typing.
+ * ⚠️ The scroll is left to the browser (the href still works with JS off);
+ * this only adds the focus, after the smooth scroll has had time to land.
+ */
+var focusBtn = document.querySelector('[data-focus]');
+if (focusBtn) {
+  focusBtn.addEventListener('click', function () {
+    var field = document.getElementById(focusBtn.getAttribute('data-focus'));
+    if (!field) return;
+    var wait = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 420;
+    setTimeout(function () { field.focus({ preventScroll: true }); }, wait);
+  });
+}
 
 // Nav gains a hairline once the page has moved. ⚠️ Passive listener: this must
 // never be the reason a scroll stutters.
