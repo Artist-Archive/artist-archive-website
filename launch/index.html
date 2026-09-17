@@ -216,7 +216,12 @@ p{margin:0}
    (Steph, 2026-09-17: "big gap under faq"). ▶️ The closing block owns that
    space now, so it is set once instead of twice. */
 .faq{padding:clamp(4rem,9vw,7rem) 0 0}
-.faq-list{margin-top:2.2rem;border-top:1px solid var(--rule)}
+/* ⚠️ THE WHOLE LIST IS THE COLUMN, not just the answers (Steph, 2026-09-17).
+   ▶️ The questions ran the full 1100px to the chevron while the answers stopped
+   at 62 characters, so every answer looked half-width and unfinished.
+   ⭐ Constraining the LIST instead keeps question and answer the same width AND
+   keeps the line length readable - a 1100px line of prose is worse than either. */
+.faq-list{margin-top:2.2rem;border-top:1px solid var(--rule);max-width:44rem}
 details{border-bottom:1px solid var(--rule)}
 summary{
   cursor:pointer;list-style:none;padding:1.15rem 2rem 1.15rem 0;position:relative;
@@ -229,7 +234,7 @@ summary::after{
   transform:rotate(45deg);transition:transform .2s ease;
 }
 details[open] summary::after{transform:rotate(-135deg)}
-details p{padding:0 0 1.2rem;max-width:62ch;font-size:.99rem}
+details p{padding:0 0 1.2rem;font-size:.99rem}
 
 /* ── CLOSE + FOOTER ───────────────────────────────────────────────────── */
 /* ⚠️ CENTRED ONLY ON A WIDE SCREEN (Steph, on a phone 2026-09-17). ▶️ Centred
