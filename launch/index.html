@@ -265,7 +265,11 @@ details p{padding:0 0 1.2rem;font-size:.99rem}
   .close .waitlist{margin-inline:auto;justify-content:center}
 }
 .close-in{border-top:2px solid var(--ink);padding-top:clamp(1.8rem,4vw,2.6rem)}
-.close-mark{width:clamp(150px,20vw,200px);margin:0 auto clamp(1.2rem,3vw,1.8rem)}
+/* ⚠️ THE ONE-LINE LOCKUP, her call (2026-09-17). ⚠️ It is 7.84:1, so it is
+   WIDTH that has to be capped, not height - left to grow it would be 500px wide
+   at any readable height. ▶️ Capped at 300px, which is 38px tall and still fits
+   a 360px phone with the page gutter. */
+.close-mark{width:clamp(230px,32vw,300px);height:auto;margin:0 auto clamp(1.2rem,3vw,1.8rem)}
 .close h2{margin-bottom:1rem}
 .close p{max-width:40ch;margin:0 auto 2rem}
 .close .waitlist{margin-inline:auto;justify-content:center}
@@ -520,7 +524,7 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
          ⚠️ STACKED, not the one-line version: at 7.84:1 the one-line lockup is
          500px wide at any readable height and will not fit a 360px phone.
          Stacked is 1.96:1. ▶️ Same reasoning as the live waitlist page. -->
-    <img class="close-mark" src="/wordmark-stacked.svg" width="328" height="168" alt="Artist Archive">
+    <img class="close-mark" src="/wordmark.svg" width="576" height="74" alt="Artist Archive">
     <h2>Be first through the door</h2>
     <p>Leave your email and you will hear the moment it opens. Nothing else, ever.</p>
     <form class="waitlist" action="https://artistarchiveapp.us2.list-manage.com/subscribe/post?u=254ab4cf1fcc0622e6ffd9266&amp;id=df3c59656b&amp;f_id=00aac3e1f0" method="post" target="_blank" novalidate>
