@@ -67,7 +67,13 @@ a:hover{text-decoration:underline}
 h1,h2,h3{font-family:var(--display);color:var(--ink);margin:0;letter-spacing:-0.02em;line-height:1.08}
 /* ⚠️ clamp() so the headline is big on a laptop and still fits a 360px phone
    without a single media query. */
-h1{font-weight:700;font-size:clamp(2.6rem,7.2vw,4.6rem)}
+/* ⚠️ THE CEILING IS 4.15rem, NOT 4.6. With the phrase set to nowrap it fitted
+   the column to the exact pixel at 1280px - and .hero has overflow:hidden, so
+   any machine rendering Work Sans a hair wider would CLIP it rather than wrap. */
+/* ⚠️ SIZED TO THE COLUMN IT ACTUALLY GETS, not to the viewport. The hero text
+   sits in one half of a 1120px page, so the headline has about 528px to play
+   with - at 4.15rem the phrase needed 592px and broke onto a third line. */
+h1{font-weight:700;font-size:clamp(1.95rem,4.6vw,3.6rem)}
 h2{font-weight:700;font-size:clamp(1.9rem,4.4vw,3rem)}
 h3{font-weight:600;font-size:1.22rem;letter-spacing:-0.01em}
 p{margin:0}
@@ -132,9 +138,17 @@ p{margin:0}
   background:radial-gradient(60% 60% at 40% 40%,var(--grad-1) 0%,rgba(226,191,201,0) 70%);
   opacity:.5;pointer-events:none;
 }
+/* ⚠️ min-width:0 ON THE COLUMNS. A grid column sizes to its content by default,
+   so one long unbreakable line in the headline would widen the text column and
+   squeeze the phone instead of wrapping. */
 .hero-in{position:relative;display:grid;gap:clamp(2.5rem,5vw,4rem);align-items:center}
+.hero-in>*{min-width:0}
 @media (min-width:900px){.hero-in{grid-template-columns:1fr 1fr}}
-.hero h1{margin-bottom:1.3rem;text-wrap:balance}
+/* ⚠️ THE BREAK IS DELIBERATE (Steph, 2026-09-17: "your clients looks" belongs
+   on one line). ⛔ text-wrap:balance is GONE from the h1 - it was evening out
+   the three lines and splitting the phrase. ▶️ The first half is nowrap and the
+   size scales down far enough that it still fits a 360px phone on one line. */
+.hero h1{margin-bottom:1.3rem}
 .hero .lede{margin-bottom:2rem}
 .cta-row{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
 .cta-note{font-size:.86rem;color:var(--muted);margin-top:1rem}
@@ -296,7 +310,7 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
   <div class="wrap hero-in">
     <div class="hero-text">
       <p class="eyebrow">Coming soon to iOS and Android</p>
-      <h1>Your clients' looks, remembered.</h1>
+      <h1>Your clients' looks,<br>remembered.</h1>
       <!-- ⭐ THE HOOK IS A SCENE, NOT A FEATURE LIST. Six weeks between the
            trial and the day is the real gap this app exists to close, and every
            bridal artist has been caught in it. ⛔ Do not turn this back into
