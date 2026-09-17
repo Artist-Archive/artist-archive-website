@@ -220,7 +220,19 @@ details[open] summary::after{transform:rotate(-135deg)}
 details p{padding:0 0 1.2rem;max-width:62ch;font-size:.99rem}
 
 /* ── CLOSE + FOOTER ───────────────────────────────────────────────────── */
-.close{background:var(--ground);padding:clamp(4rem,9vw,6rem) 0 clamp(3rem,7vw,4.5rem);text-align:center}
+/* ⚠️ CENTRED ONLY ON A WIDE SCREEN (Steph, on a phone 2026-09-17). ▶️ Centred
+   paragraphs on a 390px screen read as a narrow ragged column with air down both
+   sides; left-aligned they use the full width like everything else on the page. */
+.close{background:var(--ground);padding:clamp(4rem,9vw,6rem) 0 clamp(3rem,7vw,4.5rem);text-align:left}
+.close p{margin:0 0 2rem}
+.close .close-mark{margin-left:0}
+.close .waitlist{margin-inline:0;justify-content:flex-start}
+@media (min-width:700px){
+  .close{text-align:center}
+  .close p{margin:0 auto 2rem}
+  .close .close-mark{margin-left:auto}
+  .close .waitlist{margin-inline:auto;justify-content:center}
+}
 .close-in{border-top:2px solid var(--ink);padding-top:clamp(2.5rem,6vw,3.5rem)}
 .close-mark{width:clamp(150px,20vw,200px);margin:0 auto clamp(1.8rem,4vw,2.4rem)}
 .close h2{margin-bottom:1rem}
@@ -397,7 +409,7 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
 
 <section class="founder wrap">
   <div class="founder-in">
-    <img src="/founder.jpg" width="420" height="420" alt="Steph, the bridal makeup artist who built Artist Archive." loading="lazy">
+    <img src="/founder.jpg" width="420" height="420" alt="Steph Garrett, the bridal makeup artist who built Artist Archive." loading="lazy">
     <div>
       <p class="eyebrow">Why it exists</p>
       <!-- ✅ STEPH'S OWN WORDS, lifted from the community intro post she wrote on
@@ -406,7 +418,7 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
            page about a person built by one person must never do.
            ⬜ If she wants to write a longer one, this is the place for it. -->
       <blockquote>"I'm a bridal makeup artist in Christchurch, and I built Artist Archive because I needed it."</blockquote>
-      <cite>Steph &middot; @makeupbystephnz</cite>
+      <cite>Steph Garrett &middot; @makeupbystephnz</cite>
     </div>
   </div>
 </section>
