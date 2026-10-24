@@ -183,12 +183,18 @@ p{margin:0}
 /* ⚠️ Focus ring on the LINK, since the badge artwork itself must not change. */
 .badge:focus-visible{outline:none;box-shadow:0 0 0 3px var(--blush)}
 .badge img{display:block;width:auto}
-/* 🚨 TWO DIFFERENT HEIGHTS, AND THAT IS DELIBERATE. Apple's SVG is the badge
-   edge to edge; Google's PNG carries its required clear space INSIDE the image,
-   so matching the numbers makes Google look smaller than Apple. ▶️ These two
-   values are the knob - nudge them together if the pair ever looks off. */
+/* 🚨 TWO DIFFERENT HEIGHTS, AND THE RATIO IS MEASURED, NOT GUESSED.
+   ⚠️ Apple's SVG is the badge edge to edge. Google's PNG is 646x250 but the
+   badge inside it is only 564x168 - **67.2% of the image height** - because the
+   rest is the clear space Google requires (a quarter of the badge height, which
+   is exactly the 41px it carries). ▶️ So matching the two numbers makes Google
+   render visibly SMALLER, which is what happened first: at 59px its badge was
+   about 40px against Apple's 50px (Steph spotted it on the page).
+   ▶️ 50 ÷ 0.672 = 74. Both badges now show at **50px of actual badge**.
+   ⚠️ If Apple's height changes, divide by 0.672 for Google's. ⛔ Do not crop the
+   PNG to "fix" the gap - that padding is the mandated clear space. */
 .badge-apple img{height:50px}
-.badge-google img{height:59px}
+.badge-google img{height:74px}
 
 .hero-shot{position:relative;justify-self:center;max-width:clamp(300px,44vw,440px)}
 .hero-shot img{filter:drop-shadow(0 26px 48px rgba(18,16,14,.16))}
@@ -365,7 +371,7 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
           <img src="/badges/app-store.svg" alt="Download Artist Archive on the App Store" width="150" height="50">
         </a>
         <a class="badge badge-google" href="https://play.google.com/store/apps/details?id=com.artistarchiveapp.app">
-          <img src="/badges/google-play.png" alt="Get Artist Archive on Google Play" width="152" height="59">
+          <img src="/badges/google-play.png" alt="Get Artist Archive on Google Play" width="191" height="74">
         </a>
       </div>
       <p class="cta-note">Free to start. No card, no trial countdown.</p>
@@ -573,7 +579,7 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
         <img src="/badges/app-store.svg" alt="Download Artist Archive on the App Store" width="150" height="50">
       </a>
       <a class="badge badge-google" href="https://play.google.com/store/apps/details?id=com.artistarchiveapp.app">
-        <img src="/badges/google-play.png" alt="Get Artist Archive on Google Play" width="152" height="59">
+        <img src="/badges/google-play.png" alt="Get Artist Archive on Google Play" width="191" height="74">
       </a>
     </div>
   </div>
