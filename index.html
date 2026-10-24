@@ -178,7 +178,13 @@ p{margin:0}
    and clear space are the only levers for stopping two dark blocks dominating a
    cream page. ▶️ Google asks for clear space of a quarter of the badge height,
    which the gap below comfortably clears. */
-.badges{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem}
+/* 🐞 THEY MUST NEVER STACK (Steph, from a tester on Android, 2026-10-24: "play
+   and apple icons always need to be next to each other, they are wrapping on
+   google"). ⚠️ At full size the pair needs about 353px, which a 360px phone
+   cannot give once the page gutter is taken off, so it wrapped there while the
+   iPhone was fine. ▶️ `nowrap` holds the row and the sizes below shrink to fit
+   instead. */
+.badges{display:flex;flex-wrap:nowrap;align-items:center;gap:.75rem}
 .badge{display:inline-flex;border-radius:8px}
 /* ⚠️ Focus ring on the LINK, since the badge artwork itself must not change. */
 .badge:focus-visible{outline:none;box-shadow:0 0 0 3px var(--blush)}
@@ -195,6 +201,18 @@ p{margin:0}
    PNG to "fix" the gap - that padding is the mandated clear space. */
 .badge-apple img{height:50px}
 .badge-google img{height:74px}
+/* 📱 SHRINK RATHER THAN WRAP on a narrow phone. ⚠️ Every pair keeps the 0.672
+   ratio, so the two badges stay the same visible size as each other at every
+   step. ⛔ Do not take Google below 42px here: its visible badge would fall
+   under the 28px minimum Google sets. */
+@media (max-width:430px){
+  .badge-apple img{height:42px}   /* pair needs ~298px */
+  .badge-google img{height:62px}
+}
+@media (max-width:345px){
+  .badge-apple img{height:38px}   /* pair needs ~271px */
+  .badge-google img{height:56px}
+}
 
 .hero-shot{position:relative;justify-self:center;max-width:clamp(300px,44vw,440px)}
 .hero-shot img{filter:drop-shadow(0 26px 48px rgba(18,16,14,.16))}
@@ -374,7 +392,7 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
           <img src="/badges/google-play.png" alt="Get Artist Archive on Google Play" width="191" height="74">
         </a>
       </div>
-      <p class="cta-note">Free to start. No card, no trial countdown.</p>
+      <p class="cta-note">The free plan is free for good. No card, no countdown.</p>
     </div>
     <div class="hero-shot reveal">
       <img src="shots/home.png" width="1200" height="1600" alt="The Artist Archive home screen, showing the next big day with a countdown and the clients coming up." fetchpriority="high">
@@ -508,7 +526,7 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
 <section class="price" id="price">
   <div class="wrap">
     <p class="eyebrow">Pricing</p>
-    <h2>Free to start, properly</h2>
+    <h2>Free for good, properly</h2>
     <p class="lede" style="margin-top:1rem">Ten clients, comprehensive trial tracking, the day sheet and more for as long as you want them. Premium is there for when the diary gets busier or you want to step up your business.</p>
     <div class="plans">
       <div class="plan">
@@ -573,7 +591,7 @@ footer{padding:2.4rem 0;border-top:1px solid var(--rule);font-size:.86rem;color:
          Stacked is 1.96:1. ▶️ Same reasoning as the live waitlist page. -->
     <img class="close-mark" src="/wordmark.svg" width="576" height="74" alt="Artist Archive">
     <h2>Streamline your trials</h2>
-    <p>Free to start, on iPhone and Android.</p>
+    <p>Free for good, on iPhone and Android.</p>
     <div class="badges">
       <a class="badge badge-apple" href="https://apps.apple.com/nz/app/id6798079344">
         <img src="/badges/app-store.svg" alt="Download Artist Archive on the App Store" width="150" height="50">
