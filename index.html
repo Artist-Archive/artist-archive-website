@@ -24,6 +24,7 @@
   pair over her own logo-less buttons, knowing it (2026-10-24).
 -->
 
+<link rel="canonical" href="https://www.artistarchiveapp.com/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#FFFFFF">
@@ -37,6 +38,72 @@
 <meta property="og:image:alt" content="Artist Archive logo">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.artistarchiveapp.com/og-image.png">
+<!--
+  🔎 STRUCTURED DATA (2026-11-17). Tells Google this is an APP, who it is for,
+  and that the two store listings are the same product as this site.
+
+  🚨 NOTHING IN HERE MAY BE ASPIRATIONAL. Schema is a claim made to Google in a
+  machine-readable form, and a false one is a manual-action risk.
+  ⛔ NO aggregateRating or reviewCount — the app has no ratings yet, and
+  inventing them is the single most penalised thing you can put in schema.
+  ⚠️ price "0" is TRUE: the app is free to download. The NZ$12.99 / NZ$129.99
+  Premium subscription is an in-app purchase, which is what the free Offer plus
+  the description describes. ⛔ Do not put the subscription price here as if it
+  were the cost of the app.
+  ⚠️ Organization name is "Artist Archive", NOT "Artist Archive Limited" —
+  the stores still publish under her personal name, and schema should match what
+  a visitor can verify. ▶️ Revisit when the developer-name change lands.
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.artistarchiveapp.com/#app",
+      "name": "Artist Archive",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "iOS, Android",
+      "url": "https://www.artistarchiveapp.com/",
+      "image": "https://www.artistarchiveapp.com/og-image.png",
+      "description": "Artist Archive is a client and trial record app for bridal makeup artists and hairstylists. Keep every client's trial notes, products, shades, photos and wedding-day details together, so the look can be recreated exactly weeks later.",
+      "featureList": [
+        "Client records and trial notes",
+        "Product and shade library",
+        "Look photos per appointment",
+        "Wedding-day running order as a PDF",
+        "Face charts"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "NZD",
+        "description": "Free to download, with an optional Premium subscription"
+      },
+      "sameAs": [
+        "https://apps.apple.com/nz/app/id6798079344",
+        "https://play.google.com/store/apps/details?id=com.artistarchiveapp.app"
+      ],
+      "publisher": { "@id": "https://www.artistarchiveapp.com/#org" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.artistarchiveapp.com/#org",
+      "name": "Artist Archive",
+      "url": "https://www.artistarchiveapp.com/",
+      "logo": "https://www.artistarchiveapp.com/favicon-192.png",
+      "email": "support@artistarchiveapp.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.artistarchiveapp.com/#site",
+      "name": "Artist Archive",
+      "url": "https://www.artistarchiveapp.com/",
+      "publisher": { "@id": "https://www.artistarchiveapp.com/#org" }
+    }
+  ]
+}
+</script>
 <!-- Analytics with consent. One file for both sites; see analytics.js. -->
 <script src="/analytics.js" data-ga="G-9Y5YSPHY6Y" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
